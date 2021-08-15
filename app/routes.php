@@ -163,7 +163,7 @@ function calculateAdvicePrice(int $desiredFs, array $prices): array
 
 function enhaLevel(int $level): string {
     if ($level <= 15) {
-        return "{$level}";
+        return "+{$level}";
     }
 
     switch ($level) {

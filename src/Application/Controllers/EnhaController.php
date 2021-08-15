@@ -7,7 +7,7 @@ namespace App\Application\Controllers;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-class EnhaController
+class EnhaController extends BaseController
 {
     public function __invoke(Request $request, Response $response, array $args): Response
     {
@@ -70,7 +70,7 @@ class EnhaController
                     5 => 4_560_000,
                 ],
             ],
-            'manos_tool' => [
+            'manos' => [
                 'name' => 'manos tool',
                 'isDestroyed' => false,
                 'duraLost' => 5,
@@ -100,8 +100,6 @@ class EnhaController
             'optimal' => null,
             'progress' => [],
         ];
-
-       
 
         for ($i = 1; $i < 150; $i++) {
             $baseChance = $selectedItem['chances'][$level];
@@ -154,14 +152,10 @@ class EnhaController
 
         $res['optimal'] = $res['progress'][$minStacks];
 
-        ob_start();
-        
-        include __DIR__ . '/enha.tpl.php';
-
-        $res = ob_get_clean();
-
-        $response->getBody()->write($res);
-
-        return $response;
+        return $this->render($response,  __DIR__ . '/enha.tpl.php', [
+            'level' => $level,
+            'item' => $item,
+            'res' => $res,
+        ]);
     }
 }
