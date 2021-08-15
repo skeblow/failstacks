@@ -30,11 +30,11 @@ class GatherController extends BaseController
         }
 
         $total['totalPrice'] = array_sum($total);
+        $total['time'] = (int) $query['time'];
 
-        $query['time'] = (int) $query['time'];
 
-        $total['totalPerH'] = $query['time'] > 0
-            ? $total['totalPrice'] / ($query['time'] ?: 60) * 60
+        $total['totalPerH'] = $total['time'] > 0
+            ? $total['totalPrice'] / ($total['time'] ?: 60) * 60
             : 0;
 
         return $this->render(

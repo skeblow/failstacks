@@ -34,10 +34,10 @@
             <label for="<?= $item['id']; ?>" class="form-label">
                 <?= $item['name']; ?>
                 <small class="text-muted">
-                    (<?= $prices[$item['id']]; ?>k)
+                    (<?= formatMoney($prices[$item['id']]); ?>)
 
                     <?php if ($total[$item['id']] > 0): ?>
-                        total <?= $total[$item['id']]; ?>
+                        total <?= formatMoney($total[$item['id']]); ?>
                     <?php endif; ?>
                 </small>
             </label>
@@ -53,14 +53,14 @@
 
     <div class="mb-3">
         <label for="time" class="form-label">Time in minutes</label>
-        <input type="number" class="form-control" id="time" name="time">
+        <input type="number" class="form-control" id="time" name="time" value="<?= $total['time'] ?: 0; ?>">
     </div>
 
     <div class="mb-4">
         Total:
-        <span class="h3"><?= $total['totalPrice']; ?></span>
+        <span class="h3"><?= formatMoney($total['totalPrice']); ?></span>
 
-        <small class="text-muted"><?= $total['totalPerH']; ?>/h</small>
+        <small class="text-muted"><?= formatMoney($total['totalPerH']); ?>/h</small>
     </div>
 
     <button type="submit" class="btn btn-primary">Calculate</button>
