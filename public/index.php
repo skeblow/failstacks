@@ -15,6 +15,8 @@ const ROOT_DIR =  __DIR__ . '/../';
 const SRC_DIR = ROOT_DIR . 'src/';
 const TPL_DIR = SRC_DIR . 'templates/';
 
+require SRC_DIR . '/functions.php';
+
 // Instantiate PHP-DI ContainerBuilder
 $containerBuilder = new ContainerBuilder();
 
