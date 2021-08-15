@@ -1,26 +1,31 @@
 <?php
 declare(strict_types=1);
 
-use App\Application\Actions\User\ListUsersAction;
-use App\Application\Actions\User\ViewUserAction;
 use App\Application\Controllers\AdviceController;
+use App\Application\Controllers\GatherController;
 use App\Application\Controllers\IndexController;
 use App\Application\Controllers\EnhaController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
-use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 function getPrices(): array
 {
-    return [
+    $prices = [
         'bs' => 280,
         'hardCrystal' => 1_500,
+        'sharpCrystal' => 1_600,
+        'caphras' => 2_500,
         'grunil' => 300,
+        'gemFragment' => 237,
         'rebla' => 13,
+        'meat' => 10,
         'penGrunil' => 1_800_000,
         'mem' => 2_700,
     ];
+    $prices['spiritDust'] = ($prices['caphras'] - $prices['bs']) / 5;
+
+    return $prices;
 }
 
 return function (App $app) {
@@ -31,6 +36,7 @@ return function (App $app) {
 
     $app->get('/', IndexController::class);
     $app->get('/advice/{fs}', AdviceController::class);
+    $app->get('/gather', GatherController::class);
     $app->get('/{item}/{level}', EnhaController::class);
 };
 

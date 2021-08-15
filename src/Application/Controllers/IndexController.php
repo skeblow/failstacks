@@ -10,6 +10,6 @@ class IndexController extends BaseController
 {
     public function __invoke(Request $request, Response $response): Response
     {
-        return $this->render($response, __DIR__ . '/index.tpl.php', []);
+        return $this->render($response, TPL_DIR . '/index.tpl.php', []);
     }
 }

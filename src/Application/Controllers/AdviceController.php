@@ -21,7 +21,7 @@ class AdviceController extends BaseController
 
         $res = calculateAdvicePrice($fs, $prices);
 
-        return $this->render($response, __DIR__ . '/advice.tpl.php', [
+        return $this->render($response, TPL_DIR . '/advice.tpl.php', [
             'fs' => $fs,
             'res' => $res,
         ]);

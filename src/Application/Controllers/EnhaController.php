@@ -73,7 +73,10 @@ class EnhaController extends BaseController
             'manos' => [
                 'name' => 'manos tool',
                 'isDestroyed' => false,
-                'duraLost' => 5,
+                'duraLost' => [
+                    0 => 5,
+                    1 => 10,
+                ],
                 'chances' => [
                     8 => 70.0,
                     9 => 20.0,
@@ -113,15 +116,19 @@ class EnhaController extends BaseController
 
             $advicePrice = $advice['totalPrice'];
 
-
             if ($selectedItem['isDestroyed']) {
                 $itemsPrice = $selectedItem['prices'][0] + $selectedItem['prices'][$level - 1];
                 $repairPrice = 0;
+                $duraLost = 0;
             } else {
-                $itemsPrice = 0;
-                $repairPrice = $selectedItem['duraLost'] * getPrices()['mem'];
-            }    
-            
+                $duraLost = $selectedItem['duraLost'][$level < 16 ? 0 : 1];
+
+                $itemsPrice = $level < 16
+                    ? getPrices()['bs']
+                    : getPrices()['bs'] * 2 + getPrices()['sharpCrystal'];
+                $repairPrice = $duraLost * getPrices()['mem'];
+            }
+
             $totalPrice = ($itemsPrice + $repairPrice) * (100 / $enhaChance) + $advicePrice;
             $totalPrice = round($totalPrice);
 
@@ -130,6 +137,7 @@ class EnhaController extends BaseController
                 'actualChance' => $enhaChance,
                 'advice' => $advice['fs'],
                 'advicePrice' => $advicePrice,
+                'duraLost' => $duraLost,
                 'itemsPrice' => $itemsPrice,
                 'repairPrice' => $repairPrice,
                 'totalPrice' => $totalPrice,
@@ -152,7 +160,7 @@ class EnhaController extends BaseController
 
         $res['optimal'] = $res['progress'][$minStacks];
 
-        return $this->render($response,  __DIR__ . '/enha.tpl.php', [
+        return $this->render($response, TPL_DIR . '/enha.tpl.php', [
             'level' => $level,
             'item' => $item,
             'res' => $res,
