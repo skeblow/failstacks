@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Application\Controllers;
 
+use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-class AdviceController
+class AdviceController extends BaseController
 {
     public function __invoke(Request $request, Response $response, array $args): Response
     {
@@ -20,14 +21,6 @@ class AdviceController
 
         $res = calculateAdvicePrice($fs, $prices);
 
-        ob_start();
-        
-        include __DIR__ . '/advice.tpl.php';
-
-        $res = ob_get_clean();
-
-        $response->getBody()->write($res);
-
-        return $response;
+        return $this->render(__DIR__ . '/advice.tpl.php', ['res' => $res]);
     }
 }

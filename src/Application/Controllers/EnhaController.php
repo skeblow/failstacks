@@ -70,8 +70,8 @@ class EnhaController
                     5 => 4_560_000,
                 ],
             ],
-            'manos' => [
-                'name' => 'manos',
+            'manos_tool' => [
+                'name' => 'manos tool',
                 'isDestroyed' => false,
                 'duraLost' => 5,
                 'chances' => [
