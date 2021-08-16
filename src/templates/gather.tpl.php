@@ -36,7 +36,7 @@
                 <small class="text-muted">
                     (<?= formatMoney($prices[$item['id']]); ?>)
 
-                    <?php if ($total[$item['id']] > 0): ?>
+                    <?php if (($total[$item['id']] ?? 0) > 0): ?>
                         total <?= formatMoney($total[$item['id']]); ?>
                     <?php endif; ?>
                 </small>
@@ -46,7 +46,7 @@
                     class="form-control"
                     id="<?= $item['id']; ?>"
                     name="<?= $item['id']; ?>"
-                    value="<?= $gathered[$item['id']] ?: ''; ?>"
+                    value="<?= ($gathered[$item['id']] ?? 0) ?: ''; ?>"
             >
         </div>
     <?php endforeach; ?>

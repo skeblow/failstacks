@@ -1,6 +1,6 @@
 <?php
 
-$pathInfo = $_SERVER['PATH_INFO'];
+$pathInfo = $_SERVER['PATH_INFO'] ?? '/';
 
 ?>
 

@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class IndexController extends BaseController
 {
-    public function __invoke(Request $request, Response $response): Response
+    public function __invoke(Request $request, Response $response, array $args): Response
     {
         return $this->render($response, TPL_DIR . '/index.tpl.php', []);
     }

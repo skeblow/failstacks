@@ -167,7 +167,7 @@ function formatMoney(float $amount): string
     if ($amount > 1000) {
         $amount /= 1000;
 
-        return number_format($amount, 0, '.', '_') . 'M';
+        return number_format($amount, 2, '.', '_') . 'M';
     }
 
     return number_format($amount, 0, '.', '_') . 'k';
