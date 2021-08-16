@@ -14,6 +14,8 @@ require __DIR__ . '/../vendor/autoload.php';
 const ROOT_DIR =  __DIR__ . '/../';
 const SRC_DIR = ROOT_DIR . 'src/';
 const TPL_DIR = SRC_DIR . 'templates/';
+const VAR_DIR = ROOT_DIR . 'var/';
+const DATA_DIR = VAR_DIR . 'data/';
 
 require SRC_DIR . '/functions.php';
 
