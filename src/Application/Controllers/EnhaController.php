@@ -6,6 +6,7 @@ namespace App\Application\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use function FastRoute\cachedDispatcher;
 
 class EnhaController extends BaseController
 {
@@ -34,6 +35,7 @@ class EnhaController extends BaseController
                     19,
                     20,
                 ],
+                'repairItem' => 'mem',
             ],
             'access' => [
                 'chances' => [
@@ -92,6 +94,27 @@ class EnhaController extends BaseController
                     19 => 2.0,
                     20 => 0.3,
                 ],
+                'repairItem' => 'mem',
+            ],
+            'horse' => [
+                'name' => 'horse gear',
+                'isDestroyed' => false,
+                'duraLost' => [
+                    0 => 5,
+                ],
+                'chances' => [
+                    1 => 73,
+                    2 => 48,
+                    3 => 30,
+                    4 => 20,
+                    5 => 13,
+                    6 => 8.8,
+                    7 => 5.85,
+                    8 => 3.9,
+                    9 => 10,
+                    10 => 10,
+                ],
+                'repairItem' => 'horseShoe'
             ],
         ];
 
@@ -123,10 +146,15 @@ class EnhaController extends BaseController
             } else {
                 $duraLost = $selectedItem['duraLost'][$level < 16 ? 0 : 1];
 
+                if ($selectedItem['repairItem'] !== 'mem') {
+                    $duraLost /= 10;
+                }
+
                 $itemsPrice = $level < 16
                     ? getPrices()['bs']
                     : getPrices()['bs'] * 2 + getPrices()['sharpCrystal'];
-                $repairPrice = $duraLost * getPrices()['mem'];
+
+                $repairPrice = $duraLost * getPrices()[$selectedItem['repairItem']];
             }
 
             $totalPrice = ($itemsPrice + $repairPrice) * (100 / $enhaChance) + $advicePrice;

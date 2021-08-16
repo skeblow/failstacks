@@ -24,6 +24,9 @@ $pathInfo = $_SERVER['PATH_INFO'] ?? '/';
                 <li class="nav-item">
                     <a class="nav-link" href="/manos/16">manos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/horse/1">horse gear</a>
+                </li>
                 <li class="nav item">
                     <a href="/gather" class="nav-link">gathering result</a>
                 </li>
