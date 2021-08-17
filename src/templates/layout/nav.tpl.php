@@ -2,6 +2,40 @@
 
 $pathInfo = $_SERVER['PATH_INFO'] ?? '/';
 
+$pages = [
+    [
+        'name' => 'advice calculator',
+        'url' => '/advice/20',
+        'isActive' => isUrlActive($pathInfo, '/advice/'),
+    ],
+    [
+        'name' => 'silver embro',
+        'url' => '/silver/1',
+        'isActive' => isUrlActive($pathInfo, '/silver/'),
+    ],
+    [
+        'name' => 'manos tool',
+        'url' => '/manos/16',
+        'isActive' => isUrlActive($pathInfo, '/manos/'),
+    ], 
+    [
+        'name' => 'horse gear',
+        'url' => '/horse/8',
+        'isActive' => isUrlActive($pathInfo, '/horse/'),
+    ],
+    
+    [
+        'name' => 'gathering result',
+        'url' => '/gather',
+        'isActive' => isUrlActive($pathInfo, '/gather'),
+    ],
+];
+
+function isUrlActive($pathInfo, $url): bool
+{
+    return str_starts_with($pathInfo, $url);
+}
+
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
@@ -13,23 +47,13 @@ $pathInfo = $_SERVER['PATH_INFO'] ?? '/';
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link" aria-current="page" href="/">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/advice/10">advice calculator</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/silver/1">silver embro</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/manos/16">manos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/horse/1">horse gear</a>
-                </li>
-                <li class="nav item">
-                    <a href="/gather" class="nav-link">gathering result</a>
-                </li>
+                <?php foreach($pages as $page): ?>
+                    <li class="nav-item">
+                    <a class="nav-link<?= $page['isActive'] ? ' active' : '' ?>" href="<?= $page['url'] ?>"><?= $page['name']; ?></a>
+                    </li>
+                <?php endforeach; ?>
             </ul>
         </div>
     </div>

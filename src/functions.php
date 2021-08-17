@@ -174,3 +174,15 @@ function formatMoney(float $amount): string
 
     return number_format($amount, 0, '.', '_') . 'k';
 }
+
+function vd(mixed $var): void
+{
+    var_dump($var);
+}
+
+function dd(mixed $var): void
+{
+    var_dump($var);
+    exit;
+}
+
