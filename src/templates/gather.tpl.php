@@ -17,8 +17,16 @@
             'id' => 'hardCrystal',
         ],
         [
+            'name' => 'Sharp black crystal',
+            'id' => 'sharpCrystal',
+        ],
+        [
             'name' => 'Caphras stone',
             'id' => 'caphras',
+        ],
+        [
+            'name' => 'Deep blue hoof root',
+            'id' => 'hoofRoot',
         ],
         [
             'name' => 'Ancient spirit dust',

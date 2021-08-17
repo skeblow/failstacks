@@ -27,3 +27,4 @@ class PricesService
         file_put_contents($dataFile, json_encode($data));
     }
 }
+

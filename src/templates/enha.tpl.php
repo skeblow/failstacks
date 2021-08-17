@@ -6,7 +6,7 @@
 
 <div id="chartContainer" style="height: 370px; width: 100%; margin-top: 2em"></div>
 
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="/js/canvajs.min.js"></script>
 
 <pre><?php print_r($res); ?></pre>
 

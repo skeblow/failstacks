@@ -14,6 +14,7 @@ function getPrices(): array
         'penGrunil' => 1_800_000,
         'mem' => 2_700,
         'horseShoe' => 500,
+        'hoofRoot' => 2_300,
     ];
     $prices['spiritDust'] = ($prices['caphras'] - $prices['bs']) / 5;
 
