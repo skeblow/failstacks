@@ -33,6 +33,11 @@ $pages = [
         'url' => '/prices',
         'isActive' => isUrlActive($pathInfo, '/prices'),
     ],
+    [
+        'name' => 'processing stone',
+        'url' => '/procStone/10',
+        'isActive' => isUrlActive($pathInfo, '/procStone'),
+    ],
 ];
 
 function isUrlActive($pathInfo, $url): bool

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Application\Items;
 
-interface BreakingItemInterface
+interface BreakingItemInterface extends EnchantableItemIterface
 {
-    public function getItemId(): string;
+    public function getId(): string;
 }
