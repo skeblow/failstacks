@@ -64,6 +64,7 @@ class EnhaController extends BaseController
             }
 
             $totalPrice = (100 / $enhaChance) * $repairPrice + $advicePrice;
+            $totalPrice = round($totalPrice);
 
             $trial = [
                 'fs' => $i,
@@ -79,7 +80,7 @@ class EnhaController extends BaseController
 
             $optimal ??= $trial;
 
-            if ($trial['totalPrice'] < $optimal['totalPrice']) {
+            if ($totalPrice < $optimal['totalPrice']) {
                 $optimal = $trial;
             }
 

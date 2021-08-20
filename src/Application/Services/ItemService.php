@@ -18,11 +18,6 @@ class ItemService
     {
         $basePrice = $this->pricesService->getPrice($id);
 
-        return new BossItem($id, $basePrice);
-    }
-
-    public function getRepairItem(string $id): RepairableItemInterface
-    {
         if ($id === 'mem') {
             return new BasicItem(
                 $id,
@@ -32,6 +27,31 @@ class ItemService
             );
         }
 
+        return new BossItem($id, $id, $basePrice);
+    }
+
+    public function getRepairItem(string $id): RepairableItemInterface
+    {
+        if ($id === 'mem') {
+            return $this->getItem($id);
+        }
+
         throw new \Exception(sprintf('Repair item %s not found!', $id));
+    }
+
+    /** @return array<ItemInterface> */
+    public function getAllItems(): array
+    {
+        $itemIds = [
+            'mem',
+            'kzarka',
+        ];
+        $items = [];
+
+        foreach ($itemIds as $id) {
+            $items[] = $this->getItem($id);
+        }
+
+        return $items;
     }
 }

@@ -7,6 +7,7 @@ class BossItem implements ItemInterface, NonBreakingItemInterface
 {
     public function __construct(
         private string $id,
+        private string $name,
         private int $basePrice,
     ) {}
 
@@ -17,7 +18,7 @@ class BossItem implements ItemInterface, NonBreakingItemInterface
 
     public function getName(): string
     {
-        return 'boss item';
+        return $this->name;
     }
 
     public function getBasePrice(): int

@@ -11,7 +11,7 @@ $pages = [
     [
         'name' => 'silver embro',
         'url' => '/silver/1',
-        'isActive' => isUrlActive($pathInfo, '/silver/'),
+        'isActive' => isUrlActive($pathInfo, '/silver'),
     ],
     [
         'name' => 'manos tool',
@@ -23,11 +23,15 @@ $pages = [
         'url' => '/horse/8',
         'isActive' => isUrlActive($pathInfo, '/horse/'),
     ],
-    
     [
         'name' => 'gathering result',
         'url' => '/gather',
         'isActive' => isUrlActive($pathInfo, '/gather'),
+    ],
+    [
+        'name' => 'prices !TODO!',
+        'url' => '/prices',
+        'isActive' => isUrlActive($pathInfo, '/prices'),
     ],
 ];
 

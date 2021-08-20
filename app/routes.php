@@ -5,6 +5,7 @@ use App\Application\Controllers\AdviceController;
 use App\Application\Controllers\GatherController;
 use App\Application\Controllers\IndexController;
 use App\Application\Controllers\EnhaController;
+use App\Application\Controllers\PricesController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -18,5 +19,8 @@ return function (App $app) {
     $app->get('/', IndexController::class);
     $app->get('/advice/{fs}', AdviceController::class);
     $app->get('/gather', GatherController::class);
+    $app->get('/prices', PricesController::class);
+    $app->post('/prices', PricesController::class . ':post');
+
     $app->get('/{item}/{level}', EnhaController::class);
 };
