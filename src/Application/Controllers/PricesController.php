@@ -25,13 +25,7 @@ class PricesController extends BaseController
 
     public function post(Request $request, Response $response, array $args): Response
     {
-        $prices = $request->getParsedBody();
-
-        foreach ($prices as $key => $value) {
-            $prices[$key] = (int) $value;
-        }
-
-        $this->pricesService->savePrices($prices);
+        $this->pricesService->savePrices($request->getParsedBody());
         
         return $response->withHeader('Location', '/prices');
     }

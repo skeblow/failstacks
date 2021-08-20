@@ -40,12 +40,9 @@ class PricesService
 
     public function savePrices(array $data): void
     {
+        $data = array_map('intval', $data);
         $dataFile = DATA_DIR . 'prices.json';
-        
-        if (! directoryExists(DATA_DIR)) {
-            mkdir(DATA_DIR);
-        }
-
+    
         if (file_exists($dataFile)) {
             unlink($dataFile);
         }

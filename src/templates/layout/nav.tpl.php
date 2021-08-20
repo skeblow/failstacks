@@ -29,7 +29,7 @@ $pages = [
         'isActive' => isUrlActive($pathInfo, '/gather'),
     ],
     [
-        'name' => 'prices !TODO!',
+        'name' => 'prices',
         'url' => '/prices',
         'isActive' => isUrlActive($pathInfo, '/prices'),
     ],
