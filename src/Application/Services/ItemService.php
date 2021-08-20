@@ -7,8 +7,8 @@ use App\Application\Items\BasicItem;
 use App\Application\Items\BlueItem;
 use App\Application\Items\ItemInterface;
 use App\Application\Items\BossItem;
+use App\Application\Items\HorseItem;
 use App\Application\Items\RepairableItemInterface;
-use PHPUnit\Framework\MockObject\MatchBuilderNotFoundException;
 
 class ItemService
 {
@@ -39,6 +39,12 @@ class ItemService
         'kzarka' => 'kzarka weapon',
     ];
 
+    private const HORSE_ITEMS = [
+        'horseShoe' => 'horse shoe',
+        'horseSaddle' => 'horse saddle',
+        'horseStirrups' => 'horse stirrups',
+    ];
+
     public function __construct(
         private PricesService $pricesService,
     ) {}
@@ -64,9 +70,12 @@ class ItemService
             );
         }
 
-        if (isset(self::BOSS_GEAR[$id]))
-        {
+        if (isset(self::BOSS_GEAR[$id])) {
             return new BossItem($id, self::BOSS_GEAR[$id], $basePrice);
+        }
+
+        if (isset(self::HORSE_ITEMS[$id])) {
+            return new HorseItem($id, self::HORSE_ITEMS[$id], $basePrice);
         }
 
         throw new \Exception(sprintf('Item %s not found!', $id));
@@ -93,6 +102,7 @@ class ItemService
         $itemIds = array_merge(
             array_keys(self::BASIC_ITEMS),
             array_keys(self::BLUE_ITEMS),
+            array_keys(self::HORSE_ITEMS),
         );
         $items = [];
 

@@ -3,29 +3,8 @@ declare(strict_types=1);
 
 namespace App\Application\Items;
 
-class BlueItem implements ItemInterface, NonBreakingItemInterface, RepairableItemInterface
+class BlueItem extends GreenItem
 {
-    public function __construct(
-        private string $id,
-        private string $name,
-        private int $basePrice,
-    ) {}
-
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getBasePrice(): int
-    {
-        return $this->basePrice;
-    }
-
     public function getEnhaChance(int $level): float
     {
         if ($level < 8) {
@@ -53,22 +32,5 @@ class BlueItem implements ItemInterface, NonBreakingItemInterface, RepairableIte
         ];
 
         return $chances[$level];
-    }
-
-    public function getDurabilityRestored(): int
-    {
-        return 10;
-    }
-
-    public function getDurabilityLost(int $enhaLevel): int
-    {
-        return $enhaLevel < 16 
-            ? 5
-            : 10;
-    }
-
-    public function getRepairItemId(): string
-    {
-        return $this->id;
     }
 }
