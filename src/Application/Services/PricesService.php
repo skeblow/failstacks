@@ -3,29 +3,25 @@ declare(strict_types=1);
 
 namespace App\Application\Services;
 
+use function PHPUnit\Framework\directoryExists;
+
 class PricesService
 {
     public function getPrice(string $productId): int
     {
-        $prices = [
-            'bs' => 280,
-            'hardCrystal' => 1_500,
-            'sharpCrystal' => 1_600,
-            'caphras' => 2_500,
-            'grunil' => 300,
-            'gemFragment' => 237,
-            'rebla' => 13,
-            'meat' => 10,
-            'penGrunil' => 1_800_000,
-            'mem' => 2_700,
-            'horseShoe' => 500,
-            'hoofRoot' => 2_300,
-            'kzarka' => 160,
-        ];
-        $prices['spiritDust'] = ($prices['caphras'] - $prices['bs']) / 5;
-    
+        $prices = $this->getPrices();
+
+        if ($productId === 'spiritDust') {
+            if (! isset($prices['caphras'], $prices['bs'])) {
+                return 0;
+            }
+
+            return ($prices['caphras'] - $prices['bs']) / 5;
+        }
+
         if (! isset($prices[$productId])) {
-            throw new \Exception(sprintf('Price for product %s not found!', $productId));
+            return 0;
+            // throw new \Exception(sprintf('Price for product %s not found!', $productId));
         }
     
         return $prices[$productId];
@@ -39,13 +35,17 @@ class PricesService
             return [];
         }
 
-        return json_decode(file_get_contents($dataFile));
+        return json_decode(file_get_contents($dataFile), true);
     }
 
     public function savePrices(array $data): void
     {
         $dataFile = DATA_DIR . 'prices.json';
         
+        if (! directoryExists(DATA_DIR)) {
+            mkdir(DATA_DIR);
+        }
+
         if (file_exists($dataFile)) {
             unlink($dataFile);
         }
