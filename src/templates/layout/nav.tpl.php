@@ -20,8 +20,12 @@ $pages = [
     ], 
     [
         'name' => 'horse gear',
-        'url' => '/horse/8',
         'isActive' => isUrlActive($pathInfo, '/horse/'),
+        'items' => [        
+            'horse shoe' => '/horseShoe/1',
+            'horse saddle' => '/horseSaddle/1',
+            'horse stirrups' => '/horseStirrups/1',
+        ],
     ],
     [
         'name' => 'gathering result',
@@ -56,8 +60,20 @@ function isUrlActive($pathInfo, $url): bool
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <?php foreach($pages as $page): ?>
-                    <li class="nav-item">
-                    <a class="nav-link<?= $page['isActive'] ? ' active' : '' ?>" href="<?= $page['url'] ?>"><?= $page['name']; ?></a>
+                    <?php $hasDropdown = isset($page['items']); ?>
+                    <li class="nav-item<?= $hasDropdown ? ' dropdown' : ''; ?>">
+                        <a 
+                            class="nav-link<?= $page['isActive'] ? ' active' : '' ?><?= $hasDropdown ? ' dropdown-toggle' : '' ?>" 
+                            href="<?= $page['url'] ?? '#' ?>"
+                            <?= $hasDropdown ? 'data-toggle="dropdown"' : '' ?>
+                        ><?= $page['name']; ?></a>
+                        <?php if ($hasDropdown): ?>
+                            <div class="dropdown-menu">
+                                <?php foreach ($page['items'] as $name => $url): ?>
+                                    <a class="dropdown-item" href="<?= $url ?>"><?= $name ?></a>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
                     </li>
                 <?php endforeach; ?>
             </ul>

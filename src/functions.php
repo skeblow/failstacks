@@ -23,7 +23,7 @@ function getPrices(): array
 
 function calculateChance(float $baseChance, int $failstacks): float
 {
-    return $baseChance + $baseChance / 10 * $failstacks;
+    return min($baseChance + $baseChance / 10 * $failstacks, 100);
 }
 
 function calculateAdvicePrice(int $desiredFs, array $prices): array

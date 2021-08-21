@@ -8,7 +8,7 @@ use App\Application\Items\BreakingItemInterface;
 use App\Application\Items\EnchantableItemIterface;
 use App\Application\Items\NonBreakingItemInterface;
 use App\Application\Services\ItemService;
-use Exception;
+
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -33,13 +33,18 @@ class EnhaController extends BaseController
         ];
 
         if (! $item instanceof EnchantableItemIterface) {
-            throw new Exception('Item cannot be enhanced!');
+            throw new \Exception('Item cannot be enhanced!');
         }
 
         $optimal = null;
 
         for ($i = 1; $i < 150; $i++) {
             $baseChance = $item->getEnhaChance($level);
+
+            if ($baseChance === 0.0) {
+                throw new \Exception(sprintf('Enhachance is 0 for +%s %s!', $level, $item->getId()));
+            }
+
             $enhaChance = calculateChance($baseChance, $i);
             $adviceResult = calculateAdvicePrice($i - $permaChance, getPrices());
 
@@ -58,9 +63,9 @@ class EnhaController extends BaseController
                     / $repairItem->getDurabilityRestored();
 
             } elseif ($item instanceof BreakingItemInterface) {
-                throw new Exception('Not yet implemented!');
+                throw new \Exception('Not yet implemented!');
             } else {
-                throw new Exception('Not enchantable item!');
+                throw new \Exception('Not enchantable item!');
             }
 
             $totalPrice = (100 / $enhaChance) * $repairPrice + $advicePrice;
