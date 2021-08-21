@@ -12,6 +12,6 @@ class AdviceService
 
     public function getAdviceProgressForLevel(int $level): array
     {
-        
+
     }
 }

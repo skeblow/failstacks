@@ -8,6 +8,7 @@ use App\Application\Items\BlueAccessoryItem;
 use App\Application\Items\BlueItem;
 use App\Application\Items\ItemInterface;
 use App\Application\Items\BossItem;
+use App\Application\Items\BossArmorItem;
 use App\Application\Items\BreakingItemInterface;
 use App\Application\Items\HorseItem;
 use App\Application\Items\RepairableItemInterface;
@@ -16,6 +17,7 @@ class ItemService
 {
     private const BASIC_ITEMS = [
         'bs' => 'black stone',
+        'concentratedBs' => 'concentrated black stone',
         'mem' => 'memory fragment',
         'hardCrystal' => 'hard black crystal',
         'sharpCrystal' => 'sharp black crysyal',
@@ -39,6 +41,10 @@ class ItemService
 
     private const BOSS_GEAR = [
         'kzarka' => 'kzarka weapon',
+    ];
+
+    private const BOSS_ARMOR = [
+        'bossUrugon' => 'urugon shoes',
     ];
 
     private const HORSE_ITEMS = [
@@ -74,6 +80,10 @@ class ItemService
 
         if (isset(self::BOSS_GEAR[$id])) {
             return new BossItem($id, self::BOSS_GEAR[$id], $basePrice);
+        }
+
+        if (isset(self::BOSS_ARMOR[$id])) {
+            return new BossArmorItem($id, self::BOSS_ARMOR[$id], $basePrice);
         }
 
         if (isset(self::HORSE_ITEMS[$id])) {

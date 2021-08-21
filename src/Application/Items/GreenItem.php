@@ -75,7 +75,7 @@ class GreenItem implements ItemInterface, NonBreakingItemInterface, RepairableIt
     public function getEnchantItemId(int $level): string
     {
         if ($level > 15) {
-            throw new \Exception('TODO implement huge bs');
+            return 'concentratedBs';
         }
 
         return 'bs';

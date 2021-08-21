@@ -19,6 +19,14 @@ class PricesService
             return ($prices['caphras'] - $prices['bs']) / 5;
         }
 
+        if ($productId === 'concentratedBs') {
+            if (! isset($prices['bs'], $prices['hardCrystal'])) {
+                return 0;
+            }
+
+            return $prices['bs'] * 2 + $prices['hardCrystal'];
+        }
+
         if (! isset($prices[$productId])) {
             return 0;
             // throw new \Exception(sprintf('Price for product %s not found!', $productId));
