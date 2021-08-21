@@ -9,28 +9,41 @@ $pages = [
         'isActive' => isUrlActive($pathInfo, '/advice/'),
     ],
     [
-        'name' => 'silver cook armor',
-        'url' => '/silverCook/1',
+        'name' => 'silver embro',
         'isActive' => isUrlActive($pathInfo, '/silver'),
-    ],
-    [
-        'name' => 'manos tool',
-        'url' => '/manos/16',
-        'isActive' => isUrlActive($pathInfo, '/manos/'),
-    ], 
-    [
-        'name' => 'horse gear',
-        'isActive' => isUrlActive($pathInfo, '/horse/'),
-        'items' => [        
-            'horse shoe' => '/horseShoe/1',
-            'horse saddle' => '/horseSaddle/1',
-            'horse stirrups' => '/horseStirrups/1',
+        'items' => [
+            '/silverCook/1' => '+1 cook'
         ],
     ],
     [
-        'name' => 'gathering result',
-        'url' => '/gather',
-        'isActive' => isUrlActive($pathInfo, '/gather'),
+        'name' => 'manos',
+        'isActive' => isUrlActive($pathInfo, '/manos'),
+        'items' => [
+            '/manosTool/16' => 'tool'
+        ],
+    ], 
+    [
+        'name' => 'horse',
+        'isActive' => isUrlActive($pathInfo, '/horse/'),
+        'items' => [        
+            '/horseShoe/1' => 'horse shoe',
+            '/horseSaddle/1' => 'horse saddle',
+            '/horseStirrups/1' => 'horse stirrups',
+        ],
+    ],
+    [
+        'name' => 'boss',
+        'isActive' => isUrlActive($pathInfo, '/boss'),
+        'items' => [
+            '/bossUrugon/16' => 'urugon +16',
+            '/bossKzarka/16' => 'kzarka +16',
+            '/bossDimTree/20' => 'dimTree +20',
+        ],
+    ],
+    [
+        'name' => 'processing stone',
+        'url' => '/procStone/10',
+        'isActive' => isUrlActive($pathInfo, '/procStone'),
     ],
     [
         'name' => 'prices',
@@ -38,9 +51,9 @@ $pages = [
         'isActive' => isUrlActive($pathInfo, '/prices'),
     ],
     [
-        'name' => 'processing stone',
-        'url' => '/procStone/10',
-        'isActive' => isUrlActive($pathInfo, '/procStone'),
+        'name' => 'gathering result',
+        'url' => '/gather',
+        'isActive' => isUrlActive($pathInfo, '/gather'),
     ],
 ];
 
@@ -65,11 +78,11 @@ function isUrlActive($pathInfo, $url): bool
                         <a 
                             class="nav-link<?= $page['isActive'] ? ' active' : '' ?><?= $hasDropdown ? ' dropdown-toggle' : '' ?>" 
                             href="<?= $page['url'] ?? '#' ?>"
-                            <?= $hasDropdown ? 'data-toggle="dropdown"' : '' ?>
+                            <?= $hasDropdown ? 'data-bs-toggle="dropdown"' : '' ?>
                         ><?= $page['name']; ?></a>
                         <?php if ($hasDropdown): ?>
                             <div class="dropdown-menu">
-                                <?php foreach ($page['items'] as $name => $url): ?>
+                                <?php foreach ($page['items'] as $url => $name): ?>
                                     <a class="dropdown-item" href="<?= $url ?>"><?= $name ?></a>
                                 <?php endforeach; ?>
                             </div>
