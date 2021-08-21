@@ -29,6 +29,7 @@ $pages = [
             '/horseShoe/1' => 'horse shoe',
             '/horseSaddle/1' => 'horse saddle',
             '/horseStirrups/1' => 'horse stirrups',
+            '/horseArmor/1' => 'horse armor',
         ],
     ],
     [

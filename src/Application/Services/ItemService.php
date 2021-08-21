@@ -51,6 +51,7 @@ class ItemService
         'horseShoe' => 'horse shoe',
         'horseSaddle' => 'horse saddle',
         'horseStirrups' => 'horse stirrups',
+        'horseArmor' => 'horse armor',
     ];
 
     public function __construct(
