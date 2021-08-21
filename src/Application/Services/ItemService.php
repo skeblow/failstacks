@@ -4,9 +4,11 @@ declare(strict_types=1);
 namespace App\Application\Services;
 
 use App\Application\Items\BasicItem;
+use App\Application\Items\BlueAccessoryItem;
 use App\Application\Items\BlueItem;
 use App\Application\Items\ItemInterface;
 use App\Application\Items\BossItem;
+use App\Application\Items\BreakingItemInterface;
 use App\Application\Items\HorseItem;
 use App\Application\Items\RepairableItemInterface;
 
@@ -31,7 +33,7 @@ class ItemService
         'procStone' => 'processing stone'
     ];
 
-    private const SILVER = [
+    private const SILVER_ITEMS = [
         'silverCook' => 'silver embroidered cooks clothes'
     ];
 
@@ -78,6 +80,10 @@ class ItemService
             return new HorseItem($id, self::HORSE_ITEMS[$id], $basePrice);
         }
 
+        if (isset(self::SILVER_ITEMS[$id])) {
+            return new BlueAccessoryItem($id, self::SILVER_ITEMS[$id], $basePrice);
+        }
+
         throw new \Exception(sprintf('Item %s not found!', $id));
     }
 
@@ -96,6 +102,17 @@ class ItemService
         return $item;
     }
 
+    public function getBreakingItem(string $id): BreakingItemInterface
+    {
+        $item = $this->getItem($id);
+
+        if (! $item instanceof BreakingItemInterface) {
+            throw new \Exception(sprintf('Breaking item %s not found!', $id));
+        }
+
+        return $item;
+    }
+
     /** @return array<ItemInterface> */
     public function getAllItems(): array
     {
@@ -103,6 +120,7 @@ class ItemService
             array_keys(self::BASIC_ITEMS),
             array_keys(self::BLUE_ITEMS),
             array_keys(self::HORSE_ITEMS),
+            array_keys(self::SILVER_ITEMS),
         );
         $items = [];
 

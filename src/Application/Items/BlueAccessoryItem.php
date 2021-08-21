@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Application\Items;
 
-class BlueAccesoryItem implements ItemInterface, BreakingItemInterface
+class BlueAccessoryItem implements ItemInterface, BreakingItemInterface
 {
     public function __construct(
         private string $id,
@@ -33,7 +33,7 @@ class BlueAccesoryItem implements ItemInterface, BreakingItemInterface
         }
 
         $chances = [
-            1 => 25.0,
+            1 => 30.0,
             2 => 10.0,
             3 => 7.5,
             4 => 2.5,
@@ -41,5 +41,24 @@ class BlueAccesoryItem implements ItemInterface, BreakingItemInterface
         ];
 
         return $chances[$level];
+    }
+
+    public function getEnchantItemId(int $level): string
+    {
+        return $this->id;   
+    }
+
+    public function getLevelPriceMultiplier(int $level): float
+    {
+        $multipliers = [
+            0 => 1,
+            1 => 5.3,
+            2 => 21.5,
+            3 => 174.4,
+            4 => 1500, 
+            5 => 6857,
+        ];
+
+        return $multipliers[$level];
     }
 }

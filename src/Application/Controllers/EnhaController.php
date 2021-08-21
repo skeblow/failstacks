@@ -57,18 +57,24 @@ class EnhaController extends BaseController
             if ($item instanceof NonBreakingItemInterface) {
                 $duraLost = $item->getDurabilityLost($level);
                 $repairItem = $this->itemService->getRepairItem($item->getRepairItemId());
+                $enchantItem = $this->itemService->getItem($item->getEnchantItemId($level));
 
                 $repairPrice = $duraLost
                     * $repairItem->getBasePrice() 
                     / $repairItem->getDurabilityRestored();
 
+                $enchantItemPrice = $enchantItem->getBasePrice();
             } elseif ($item instanceof BreakingItemInterface) {
-                throw new \Exception('Not yet implemented!');
+                $repairItem = $this->itemService->getBreakingItem($item->getId());
+
+                $repairPrice = $repairItem->getBasePrice() * $repairItem->getLevelPriceMultiplier($level - 1);
+                $enchantItemPrice = $item->getBasePrice();
+                
             } else {
                 throw new \Exception('Not enchantable item!');
             }
 
-            $totalPrice = (100 / $enhaChance) * $repairPrice + $advicePrice;
+            $totalPrice = (100 / $enhaChance) * ($repairPrice + $enchantItemPrice) + $advicePrice;
             $totalPrice = round($totalPrice);
 
             $trial = [
@@ -76,8 +82,10 @@ class EnhaController extends BaseController
                 'baseChance' => $baseChance,
                 'enhaChance' => $enhaChance,
                 'advicePrice' => $advicePrice,
-                'durabilityLost' => $duraLost,
+                'durabilityLost' => $duraLost ?? 0,
                 'repairPrice' => $repairPrice,
+                'enchantItem' => $item->getEnchantItemId($level),
+                'enchantItemPrice' => $enchantItemPrice,
                 'totalPrice' => $totalPrice,
             ];
 

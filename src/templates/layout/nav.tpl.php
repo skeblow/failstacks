@@ -9,8 +9,8 @@ $pages = [
         'isActive' => isUrlActive($pathInfo, '/advice/'),
     ],
     [
-        'name' => 'silver embro',
-        'url' => '/silver/1',
+        'name' => 'silver cook armor',
+        'url' => '/silverCook/1',
         'isActive' => isUrlActive($pathInfo, '/silver'),
     ],
     [
