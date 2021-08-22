@@ -25,17 +25,20 @@ class AdviceController extends BaseController
 
         $allAdvices = [];
 
-        for ($i = 0; $i < 150; $i++) {
+        for ($i = $fs - 10; $i < ($fs + 10); $i++) {
+            $adviceResult = $this->adviceService->getAdviceProgressForFailStack($i);
+
+            if ($adviceResult['fs'] !== $i) {
+                continue;
+            }
+
             $allAdvices[] = [
                 'fs' => $i,
-                'totalPrice' => $this->adviceService->getAdviceTotalPrice($i),
+                'totalPrice' => round($adviceResult['totalPrice']),
             ];
         }
 
         $res = $this->adviceService->getAdviceProgressForFailStack($fs);
-
-        var_dump(calculateAdvicePrice($fs, getPrices())['totalPrice']);
-        //var_dump($res); exit;
 
         return $this->render($response, TPL_DIR . '/advice.tpl.php', [
             'fs' => $fs,

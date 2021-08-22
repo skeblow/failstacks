@@ -66,6 +66,7 @@ class AdviceService
 
         return [
             'totalPrice' => $totalPrice,
+            'fs' => $fs,
             'progress' => $progress,
         ];
     }

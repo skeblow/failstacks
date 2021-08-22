@@ -18,7 +18,7 @@
 
 <script src="/js/canvasjs.min.js"></script>
 
-<pre><?php print_r($allAdvices); ?></pre>
+<pre><?php print_r($res); ?></pre>
 
 <script>
     let fs = document.getElementById('fs');
