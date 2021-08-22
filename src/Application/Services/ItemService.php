@@ -10,8 +10,10 @@ use App\Application\Items\ItemInterface;
 use App\Application\Items\BossItem;
 use App\Application\Items\BossArmorItem;
 use App\Application\Items\BreakingItemInterface;
+use App\Application\Items\GreenArmor;
 use App\Application\Items\HorseItem;
 use App\Application\Items\RepairableItemInterface;
+use App\Application\Items\WhiteArmor;
 
 class ItemService
 {
@@ -27,8 +29,12 @@ class ItemService
         'meat' => 'meat',
     ];
 
-    private const GREEN_GEAR = [
+    private const GREEN_ITEMS = [
         'grunil' => 'grunil helmet',
+    ];
+
+    private const WHITE_ITEMS = [
+        'rebla' => 'rebla gloves',
     ];
 
     private const BLUE_ITEMS = [
@@ -39,7 +45,7 @@ class ItemService
         'silverCook' => 'silver embroidered cooks clothes'
     ];
 
-    private const BOSS_GEAR = [
+    private const BOSS_WEAPONS = [
         'kzarka' => 'kzarka weapon',
     ];
 
@@ -71,16 +77,20 @@ class ItemService
             );
         }
 
-        if (isset(self::BLUE_ITEMS[$id])) {
-            return new BlueItem(
-                $id,
-                self::BLUE_ITEMS[$id],
-                $this->pricesService->getPrice($id),
-            );
+        if (isset(self::WHITE_ITEMS[$id])) {
+            return new WhiteArmor($id, self::WHITE_ITEMS[$id], $this->pricesService->getPrice($id));
         }
 
-        if (isset(self::BOSS_GEAR[$id])) {
-            return new BossItem($id, self::BOSS_GEAR[$id], $basePrice);
+        if (isset(self::GREEN_ITEMS[$id])) {
+            return new GreenArmor($id, self::GREEN_ITEMS[$id], $this->pricesService->getPrice($id));
+        }
+
+        if (isset(self::BLUE_ITEMS[$id])) {
+            return new BlueItem($id, self::BLUE_ITEMS[$id], $this->pricesService->getPrice($id));
+        }
+
+        if (isset(self::BOSS_WEAPONS[$id])) {
+            return new BossItem($id, self::BOSS_WEAPONS[$id], $basePrice);
         }
 
         if (isset(self::BOSS_ARMOR[$id])) {
@@ -129,7 +139,11 @@ class ItemService
     {
         $itemIds = array_merge(
             array_keys(self::BASIC_ITEMS),
+            array_keys(self::WHITE_ITEMS),
+            array_keys(self::GREEN_ITEMS),
             array_keys(self::BLUE_ITEMS),
+            array_keys(self::BOSS_ARMOR),
+            array_keys(self::BOSS_WEAPONS),
             array_keys(self::HORSE_ITEMS),
             array_keys(self::SILVER_ITEMS),
         );

@@ -1,8 +1,12 @@
 
 
-<a href="<?= sprintf('/%s/%s', $item->getId(), $level - 1); ?>" class="btn btn-primary"><?= enhaLevel($level - 1); ?></a>
+<?php if ($level > 1): ?>
+	<a href="<?= sprintf('/%s/%s', $item->getId(), $level - 1); ?>" class="btn btn-primary"><?= enhaLevel($level - 1); ?></a>
+<?php endif; ?>
 <strong><?= $item->getName(); ?> <?= enhaLevel($level); ?></strong>
-<a href="<?= sprintf('/%s/%s', $item->getId(), $level + 1); ?>" class="btn btn-primary"><?= enhaLevel($level + 1) ?></a>
+<?php if ($level < 20): ?>
+	<a href="<?= sprintf('/%s/%s', $item->getId(), $level + 1); ?>" class="btn btn-primary"><?= enhaLevel($level + 1) ?></a>
+<?php endif; ?>
 
 <div id="chartContainer" style="height: 370px; width: 100%; margin-top: 2em"></div>
 

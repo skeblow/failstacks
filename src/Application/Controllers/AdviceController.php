@@ -18,17 +18,29 @@ class AdviceController extends BaseController
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         $fs = (int) $args['fs'];
-        $prices = getPrices();
 
         if ($fs < 1 || $fs > 200) {
             throw new Exception('fu');
         }
 
-        $res = calculateAdvicePrice($fs, $prices);
+        $allAdvices = [];
+
+        for ($i = 0; $i < 150; $i++) {
+            $allAdvices[] = [
+                'fs' => $i,
+                'totalPrice' => $this->adviceService->getAdviceTotalPrice($i),
+            ];
+        }
+
+        $res = $this->adviceService->getAdviceProgressForFailStack($fs);
+
+        var_dump(calculateAdvicePrice($fs, getPrices())['totalPrice']);
+        //var_dump($res); exit;
 
         return $this->render($response, TPL_DIR . '/advice.tpl.php', [
             'fs' => $fs,
             'res' => $res,
+            'allAdvices' => $allAdvices,
         ]);
     }
 }
