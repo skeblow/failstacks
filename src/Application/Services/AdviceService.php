@@ -38,24 +38,38 @@ class AdviceService
             $enhaChance = $this->calculateEnhaChance($baseEnhaChance, $fs);
             $enhaItemPrice = $this->pricesService->getPrice($enhaItem->getId());
             $dropLevelPrice = $this->getDropLevelPrice($clickedItemLevel);
+            $increaseLevelPrice = $this->getLevelIncreasePrice($clickedItemLevel);
 
-            $clickPrice = $enhaItemPrice + $repairPrice + $dropLevelPrice;
+            $failChance = 100 - $enhaChance;
+
+            $failPrice = $totalPrice * ($enhaChance / 100);
+
+            $clickPrice = $enhaItemPrice
+                + $repairPrice * ($failChance / 100)
+                + $increaseLevelPrice * ($enhaChance / 100)
+                + $dropLevelPrice * ($failChance / 100) 
+            ;
+            // $totalPrice += $clickPrice;
+            // $failPrice = (100 / (100 - $enhaChance) - 1) * $totalPrice;
             $totalPrice += $clickPrice;
-            $failPrice = (100 / (100 - $enhaChance) - 1) * $totalPrice;
+
             $totalPrice += $failPrice;
+            // $totalPrice -= $increaseLevelPrice * ($enhaChance / 100);
 
             $progress[] = [
                 'fs' => $fs,
                 'clickedItem' => $clickedItem->getId(),
                 'clickedItemLevel' => $clickedItemLevel,
-                'clickedItemDropLevelPrice' => $dropLevelPrice,
                 'clickedItemDuraLost' => $duraLost,
                 'repairPrice' => $repairPrice,
                 'fsGain' => $fsGain,
                 'baseChance' => $baseEnhaChance,
                 'enhaChance' => $enhaChance,
+                'failChance' => $failChance,
                 'enhaItem' => $enhaItem->getId(),
                 'enhaItemPrice' => $enhaItemPrice,
+                'clickedItemLevelDropPrice' => $dropLevelPrice,
+                'clickedItemLevelIncreasePrice' => $increaseLevelPrice,
                 'failPrice' => round($failPrice),
                 'clickPrice' => round($clickPrice),
                 'totalPrice' => round($totalPrice),
@@ -74,9 +88,26 @@ class AdviceService
     private function getDropLevelPrice(int $level): int
     {
         $map = [
-            17 => 15_412,
-            18 => 17_800,
-            19 => 41_028,
+            17 => 17_800,
+            18 => 55_000,
+            19 => 350_000,
+        ];
+
+        if (isset($map[$level])) {
+            return $map[$level];
+        }
+
+        return 0;
+    }
+
+    private function getLevelIncreasePrice(int $level): int
+    {
+        $map = [
+            14 => 100,
+            16 => -17_000,
+            17 => -41_000,
+            18 => -350_000,
+            19 => -1_407_000,
         ];
 
         if (isset($map[$level])) {
