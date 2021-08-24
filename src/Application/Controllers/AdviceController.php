@@ -25,8 +25,8 @@ class AdviceController extends BaseController
 
         $allAdvices = [];
 
-        // for ($i = (int)($fs * 0.75); $i < (int)($fs * 1.25); $i++) {
-        for ($i = 1; $i < 110; $i++) {
+        for ($i = (int)($fs * 0.75); $i < (int)($fs * 1.25); $i++) {
+        // for ($i = 1; $i < 110; $i++) {
             $adviceResult = $this->adviceService->getAdviceProgressForFailStack($i);
 
             if ($adviceResult['fs'] !== $i) {

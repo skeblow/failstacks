@@ -1,3 +1,5 @@
+<h1 class="h2">Advice of valks calculator</h1>
+
 <a href="/advice/<?= $fs - 5; ?>" class="btn btn-primary">-5</a>
 <a href="/advice/<?= $fs - 1; ?>" class="btn btn-primary">-1</a>
 
