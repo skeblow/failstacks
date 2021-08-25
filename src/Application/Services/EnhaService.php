@@ -118,6 +118,6 @@ class EnhaService
 
     private function canLevelDrop(int $level): bool
     {
-        return $level >= 17;
+        return $level >= 18;
     }
 }
