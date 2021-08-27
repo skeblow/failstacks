@@ -4,6 +4,11 @@ $pathInfo = $_SERVER['PATH_INFO'] ?? '/';
 
 $pages = [
     [
+        'name' => 'prices',
+        'url' => '/prices',
+        'isActive' => isUrlActive($pathInfo, '/prices'),
+    ],
+    [
         'name' => 'advice calculator',
         'url' => '/advice/20',
         'isActive' => isUrlActive($pathInfo, '/advice/'),
@@ -45,11 +50,6 @@ $pages = [
         'name' => 'processing stone',
         'url' => '/procStone/10',
         'isActive' => isUrlActive($pathInfo, '/procStone'),
-    ],
-    [
-        'name' => 'prices',
-        'url' => '/prices',
-        'isActive' => isUrlActive($pathInfo, '/prices'),
     ],
     [
         'name' => 'gathering result',

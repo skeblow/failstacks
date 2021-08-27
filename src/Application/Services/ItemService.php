@@ -47,6 +47,7 @@ class ItemService
 
     private const BOSS_WEAPONS = [
         'kzarka' => 'kzarka weapon',
+        'manosTool' => 'manos tool',
     ];
 
     private const BOSS_ARMOR = [

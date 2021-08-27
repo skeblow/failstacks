@@ -81,8 +81,7 @@ class EnhaService
                 + $enchantItemPrice * 100 / $enhaChance
                 + $dropLevelPrice * 100 / $enhaChance
             ;
-            
-            // (100 / $enhaChance) * ($repairPrice + $enchantItemPrice) + $advicePrice;
+
             $totalPrice = round($totalPrice);
 
             $trial = [
