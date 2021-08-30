@@ -12,8 +12,6 @@
 
 <script src="/js/canvasjs.min.js"></script>
 
-<pre><?php print_r($res); ?></pre>
-
 <script>
 window.onload = function () {
  
@@ -37,6 +35,64 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	}]
 });
 chart.render();
- 
 }
 </script>
+
+<pre><?= print_r($res['optimal'], true); ?></pre>
+
+<div class="card mb-4 mt-4">
+	<div class="card-header">Optimal</div>
+  	<div class="card-body">
+  		<dl class="row mb-0">
+			<dt class="col-sm-3">fs</dt>
+	  		<dd class="col-sm-9"><?= $res['optimal']['fs']; ?></dd>
+			<dt class="col-sm-3">total price</dt>
+	  		<dd class="col-sm-9"><?= formatMoney($res['optimal']['totalPrice']); ?></dd>
+		</dl>
+  	</div>
+</div>
+
+<div class="card">
+  	<div class="card-body">
+  		<dl class="row mb-0">
+			<dt class="col-sm-3">durability lost</dt>
+	  		<dd class="col-sm-9"><?= $res['progress'][0]['durabilityLost']; ?></dd>
+			<dt class="col-sm-3">repair item</dt>
+	  		<dd class="col-sm-9"><?= $res['progress'][0]['repairItem']; ?></dd>
+			<dt class="col-sm-3">repair price</dt>
+	  		<dd class="col-sm-9"><?= formatMoney($res['progress'][0]['repairPrice']); ?></dd>
+			<dt class="col-sm-3">enchant item</dt>
+	  		<dd class="col-sm-9"><?= $res['progress'][0]['enchantItem']; ?></dd>
+			<dt class="col-sm-3">enchant item price</dt>
+	  		<dd class="col-sm-9"><?= formatMoney($res['progress'][0]['enchantItemPrice']); ?></dd>
+			<dt class="col-sm-3">drop level price</dt>
+	  		<dd class="col-sm-9"><?= formatMoney($res['progress'][0]['dropLevelPrice']); ?></dd>
+		</dl>
+  	</div>
+</div>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>fs</th>
+			<th>enha chance</th>
+			<th>advice price</th>
+			<th>total price</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($res['progress'] as $row): ?>
+			<?php $isOptimal = $row['fs'] === $res['optimal']['fs']; ?>
+			<?php $isNearOptimal = ! $isOptimal 
+				&& floor($row['fs'] * 0.75) <= $res['optimal']['fs']
+				&& ceil($row['fs'] * 1.25) >= $res['optimal']['fs']
+			?>
+			<tr class="<?= $isOptimal ? ' table-primary fw-bold' : '' ?><?= $isNearOptimal ? ' table-secondary' : '' ?>">
+				<td><?= $row['fs']; ?></td>
+				<td><?= round($row['enhaChance'], 1); ?>%</td>
+				<td><?= formatMoney($row['advicePrice']); ?></td>
+				<td><?= formatMoney($row['totalPrice']); ?></td>
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>

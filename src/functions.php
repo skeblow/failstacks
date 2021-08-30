@@ -166,6 +166,10 @@ function enhaLevel(int $level): string {
 
 function formatMoney(float $amount): string
 {
+    if ($amount === 0.0) {
+        return '0';
+    }
+
     if ($amount > 1000) {
         $amount /= 1000;
 

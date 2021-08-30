@@ -90,6 +90,7 @@ class EnhaService
                 'enhaChance' => $enhaChance,
                 'advicePrice' => $advicePrice,
                 'durabilityLost' => $duraLost ?? 0,
+                'repairItem' => $repairItem->getId(),
                 'repairPrice' => $repairPrice,
                 'enchantItem' => $item->getEnchantItemId($level),
                 'enchantItemPrice' => $enchantItemPrice,
