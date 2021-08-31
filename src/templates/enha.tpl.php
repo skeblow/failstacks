@@ -38,7 +38,7 @@ chart.render();
 }
 </script>
 
-<pre><?= print_r($res['optimal'], true); ?></pre>
+<!-- <pre><?= print_r($res['optimal'], true); ?></pre> -->
 
 <div class="card mb-4 mt-4">
 	<div class="card-header">Optimal</div>
@@ -84,10 +84,14 @@ chart.render();
 		<?php foreach ($res['progress'] as $row): ?>
 			<?php $isOptimal = $row['fs'] === $res['optimal']['fs']; ?>
 			<?php $isNearOptimal = ! $isOptimal 
-				&& floor($row['fs'] * 0.75) <= $res['optimal']['fs']
-				&& ceil($row['fs'] * 1.25) >= $res['optimal']['fs']
+				&& floor($row['totalPrice'] * 0.9) <= $res['optimal']['totalPrice']
+				&& ceil($row['totalPrice'] * 1.1) >= $res['optimal']['totalPrice']
 			?>
-			<tr class="<?= $isOptimal ? ' table-primary fw-bold' : '' ?><?= $isNearOptimal ? ' table-secondary' : '' ?>">
+			<?php $isNearNearOptimal = ! $isOptimal && ! $isNearOptimal
+				&& floor($row['totalPrice'] * 0.8) <= $res['optimal']['totalPrice']
+				&& ceil($row['totalPrice'] * 1.2) >= $res['optimal']['totalPrice']
+			?>
+			<tr class="<?= $isOptimal ? ' table-primary fw-bold' : '' ?><?= $isNearOptimal ? ' table-secondary' : '' ?><?= $isNearNearOptimal ? ' table-light' : '' ?>">
 				<td><?= $row['fs']; ?></td>
 				<td><?= round($row['enhaChance'], 1); ?>%</td>
 				<td><?= formatMoney($row['advicePrice']); ?></td>
