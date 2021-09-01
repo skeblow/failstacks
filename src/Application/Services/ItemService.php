@@ -6,9 +6,9 @@ namespace App\Application\Services;
 use App\Application\Items\BasicItem;
 use App\Application\Items\BlueAccessoryItem;
 use App\Application\Items\BlueItem;
+use App\Application\Items\BossArmor;
 use App\Application\Items\ItemInterface;
 use App\Application\Items\BossItem;
-use App\Application\Items\BossArmorItem;
 use App\Application\Items\BreakingItemInterface;
 use App\Application\Items\GreenArmor;
 use App\Application\Items\HorseItem;
@@ -46,12 +46,13 @@ class ItemService
     ];
 
     private const BOSS_WEAPONS = [
-        'kzarka' => 'kzarka weapon',
+        'bossKzarka' => 'kzarka weapon',
         'manosTool' => 'manos tool',
     ];
 
     private const BOSS_ARMOR = [
         'bossUrugon' => 'urugon shoes',
+        'bossDimTree' => 'dim tree',
     ];
 
     private const HORSE_ITEMS = [
@@ -95,7 +96,7 @@ class ItemService
         }
 
         if (isset(self::BOSS_ARMOR[$id])) {
-            return new BossArmorItem($id, self::BOSS_ARMOR[$id], $basePrice);
+            return new BossArmor($id, self::BOSS_ARMOR[$id], $basePrice);
         }
 
         if (isset(self::HORSE_ITEMS[$id])) {

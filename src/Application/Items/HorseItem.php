@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Application\Items;
 
-class HorseItem extends GreenItem
+class HorseItem extends Item implements ItemInterface, NonBreakingItemInterface, RepairableItemInterface
 {
     public function getEnhaChance(int $level): float
     {
@@ -25,5 +25,25 @@ class HorseItem extends GreenItem
         ];
 
         return $chances[$level];
+    }
+
+    public function getDurabilityRestored(): int
+    {
+        return 10;
+    }
+
+    public function getDurabilityLost(int $enhaLevel): int
+    {
+        return 5;
+    }
+
+    public function getRepairItemId(): string
+    {
+        return $this->id;
+    }
+
+    public function getEnchantItemId(int $level): string
+    {
+        return 'bs';
     }
 }

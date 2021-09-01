@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Application\Items;
 
-class BossArmorItem extends GreenItem
+class BossArmor extends BossItem
 {
     public function getEnhaChance(int $level): float
     {
