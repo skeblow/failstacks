@@ -2,6 +2,19 @@
 
 /** @var int $totalQuantity */
 /** @var float $avgCook */
+
+$printRecipe = function (array $recipe) use ($names): string {
+    $html = '<ul>';
+
+    foreach ($recipe as $ingredient => $quantity) {
+        $html .= sprintf('<li>%sx %s</li>', $quantity, $names[$ingredient]);
+    }
+
+    $html .= '</ul>';
+
+    return $html;
+};
+
 ?>
 
 <div class="row mb-4">
@@ -70,6 +83,7 @@
                     <?= $preparedQuantity / $avgCook ?>x 
                     <?= $names[$prepared] ?>
                     <small>(<?= $preparedQuantity ?>)</small>
+                    <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="<?= $printRecipe($recipes[$prepared]) ?>">i</span>
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
@@ -104,6 +118,7 @@
                     <?= $totalQuantity * $mealQuantity / $avgCook ?>x 
                     <?= $names[$meal] ?>
                     <small>(<?= $totalQuantity * $mealQuantity ?>)</small>
+                    <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="<?= $printRecipe($recipes[$meal]) ?>">i</span>
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
@@ -128,3 +143,10 @@
         </div>
     <?php endforeach ?>
 </div>
+
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
