@@ -56,6 +56,11 @@ $pages = [
         'url' => '/gather',
         'isActive' => isUrlActive($pathInfo, '/gather'),
     ],
+    [
+        'name' => 'cooking',
+        'url' => '/cooking',
+        'isActive' => isUrlActive($pathInfo, '/cooking'),
+    ],
 ];
 
 function isUrlActive($pathInfo, $url): bool

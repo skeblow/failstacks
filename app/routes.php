@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use App\Application\Controllers\AdviceController;
+use App\Application\Controllers\CookingController;
 use App\Application\Controllers\GatherController;
 use App\Application\Controllers\IndexController;
 use App\Application\Controllers\EnhaController;
@@ -21,6 +22,7 @@ return function (App $app) {
     $app->get('/gather', GatherController::class);
     $app->get('/prices', PricesController::class);
     $app->post('/prices', PricesController::class . ':post');
+    $app->get('/cooking', CookingController::class);
 
     $app->get('/{item}/{level}', EnhaController::class);
 };
