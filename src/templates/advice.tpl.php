@@ -20,31 +20,51 @@
 
 <script src="/js/canvasjs.min.js"></script>
 
-<div class="card mb-4 mt-4">
+<div class="card mb-4 mt-4 col-6">
 	<div class="card-header">Result</div>
   	<div class="card-body">
-  		<dl class="row mb-0">
-            <dt class="col-sm-3">fs</dt>
-	  		<dd class="col-sm-9"><?= $res['fs'] ?></dd>
-			<dt class="col-sm-3">total price</dt>
-	  		<dd class="col-sm-9"><?= formatMoney($res['totalPrice']) ?></dd>
-            <dt class="col-sm-3">used bs</dt>
-	  		<dd class="col-sm-9">x</dd>
-            <dt class="col-sm-3">used cbs</dt>
-	  		<dd class="col-sm-9">x</dd>
-            <dt class="col-sm-3">used rebla</dt>
-	  		<dd class="col-sm-9">x</dd>
-            <dt class="col-sm-3">used grunil</dt>
-	  		<dd class="col-sm-9">x</dd>
-            <dt class="col-sm-3">used PRI grunil</dt>
-	  		<dd class="col-sm-9">x</dd>
-            <dt class="col-sm-3">used DUO grunil</dt>
-	  		<dd class="col-sm-9">x</dd>
-            <dt class="col-sm-3">used TRI grunil</dt>
-	  		<dd class="col-sm-9">x</dd>
-            <dt class="col-sm-3">used TET grunil</dt>
-	  		<dd class="col-sm-9">x</dd>
-		</dl>
+        <table class="table">
+            <tr>
+                <th>fs</th>
+                <td><?= $res['fs'] ?></td>
+            </tr>
+            <tr>
+                <th>total price</th>
+                <td><?= formatMoney($res['totalPrice']) ?></td>
+            </tr>
+            <tr>
+                <th>used bs</th>
+                <td><?= $res['used']['bs'] ?></td>
+            </tr>
+            <tr>
+                <th>used cbs</th>
+                <td><?= $res['used']['concentratedBs'] ?? 0 ?></td>
+            </tr>
+            <tr>
+                <th>used rebla <small>(repair)</small></th>
+                <td><?= $res['used'][14] ?? 0 ?></td>
+            </tr>
+            <tr>
+                <th>used grunil <small>(repair)</small></th>
+                <td><?= ($res['used'][16] ?? 0) + ($res['used'][17] ?? 0) + ($res['used'][18] ?? 0) + ($res['used'][19] ?? 0) ?></td>
+            </tr>
+            <tr>
+                <th>used PRI grunil</th>
+                <td><?= $res['used'][16] ?? 0 ?></td>
+            </tr>
+            <tr>
+                <th>used DUO grunil</th>
+                <td><?= $res['used'][17] ?? 0 ?></td>
+            </tr>
+            <tr>
+                <th>used TRI grunil</th>
+                <td><?= $res['used'][18] ?? 0 ?></td>
+            </tr>
+            <tr>
+                <th>used TET grunil</th>
+                <td><?= $res['used'][19] ?? 0 ?></td>
+            </tr>
+        </table>
   	</div>
 </div>
 
@@ -57,7 +77,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col">
-                            <strong><?= $click['fs'] ?></strong> => <strong><?= $click['fs'] + $click['fsGain'] ?></strong> fs
+                            <strong><?= $click['fs'] ?></strong> -> <strong><?= $click['fs'] + $click['fsGain'] ?></strong> fs
                         </div>
                         <div class="col text-end"><?= formatMoney($click['totalPrice']) ?></div>
                     </div>
@@ -87,7 +107,7 @@
     <?php endforeach; ?>
 </div>
 
-<pre><?php print_r($res); ?></pre>
+<pre><?php // print_r($res); ?></pre>
 
 <script>
     let fs = document.getElementById('fs');

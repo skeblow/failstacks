@@ -22,6 +22,7 @@ class AdviceService
         $fs = 0;
 
         $progress = [];
+        $used = [];
         $totalPrice = 0;
 
         while ($fs < $targetFs) {
@@ -75,12 +76,18 @@ class AdviceService
                 'totalPrice' => round($totalPrice),
             ];
 
+            $used[$enhaItem->getId()] ??= 0;
+            $used[$enhaItem->getId()]++;
+            $used[$clickedItemLevel] ??= 0;
+            $used[$clickedItemLevel]++;
+
             $fs += $fsGain;
         }
 
         return [
             'totalPrice' => $totalPrice,
             'fs' => $fs,
+            'used' => $used,
             'progress' => $progress,
         ];
     }
