@@ -58,7 +58,9 @@
             </div>
         </div>
     </div>
+</div>
 
+<div class="row">
     <?php foreach ($preparation as $prepared => $preparedQuantity): ?>
         <?php if (! isset($recipes[$prepared])) continue ?>
 
@@ -74,6 +76,7 @@
                         <?php $qMultiplier = $preparedQuantity / $avgCook ?>
                         <?php $totalWeight = 0 ?>
                         <?php foreach ($recipes[$prepared] as $ingredient => $quantity): ?>
+                            <?php if (isset ($preparation[$ingredient])) continue ?>
                             <?php $ingredientQuantity = $qMultiplier * $quantity ?>
                             <?php $totalWeight += $weights[$ingredient] * $ingredientQuantity ?>
                             <li class="list-group-item">
@@ -91,7 +94,9 @@
         </div>
 
     <?php endforeach ?>
-
+</div>
+<hr>
+<div class="row">
     <?php foreach ($recipes['valencia'] as $meal => $mealQuantity): ?>
         <div class="col-4 mb-4">
             <div class="card">
@@ -105,6 +110,7 @@
                         <?php $qMultiplier = $totalQuantity * $mealQuantity / $avgCook ?>
                         <?php $totalWeight = 0 ?>
                         <?php foreach ($recipes[$meal] as $ingredient => $quantity): ?>
+                            <?php if (isset ($preparation[$ingredient])) continue ?>
                             <?php $ingredientQuantity = $qMultiplier * $quantity ?>
                             <?php $totalWeight += $weights[$ingredient] * $ingredientQuantity ?>
                             <li class="list-group-item">

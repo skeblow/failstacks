@@ -17,11 +17,11 @@ class CookingController extends BaseController
 
         $recipes = [
             'valencia' => [
+                'teffSandwich' => 1,
                 'couscous' => 1,
                 'datePalmWine' => 2,
-                'figPie' => 2,
                 'hamburg' => 1,
-                'teffSandwich' => 1,
+                'figPie' => 2,
             ],
             'couscous' => [
                 'freekehSnake' => 1,
@@ -54,8 +54,8 @@ class CookingController extends BaseController
                 'teffBread' => 4,
             ],
             'teffSandwich' => [
-                'freekehSnake' => 1,
                 'grilledScorpion' => 1,
+                'freekehSnake' => 1,
                 'redSauce' => 3,
                 'teffBread' => 1,
             ],
@@ -143,19 +143,23 @@ class CookingController extends BaseController
 
         $forPreparation = [
             'paprika',
-            'freekehSnake',
             'teffDough',
             'liquor',
             'leavening',
             'sugar',
-            'dough',
             'oliveOil',
             'pickled',
-            'teffBread',
-            'grilledScorpion',
             'redSauce',
+            'water',
+            'salt',
+            'grilledScorpion',
+            'freekehSnake',
+            'teffBread',
+            'butter',
+            'hotPepper',
+            'nutmeg',
         ];
-
+        
         $prepared = [];
 
         foreach ($recipes['valencia'] as $meal => $mealQuantity) {
@@ -170,6 +174,21 @@ class CookingController extends BaseController
 
                 $prepared[$ingredient] ??= 0;
                 $prepared[$ingredient] += $ingredientQuantity;
+            }
+        }
+
+        foreach ($prepared as $ingredient => $ingredientQuantity) {
+            if (! isset($recipes[$ingredient])) {
+                continue;
+            }
+
+            foreach ($recipes[$ingredient] as $ingredient => $quantity) {
+                if (! in_array($ingredient, $forPreparation, true)) {
+                    continue;
+                }
+
+               $prepared[$ingredient] ??= 0;
+               $prepared[$ingredient] += $ingredientQuantity / $avgCook * $quantity;
             }
         }
 
