@@ -1,28 +1,12 @@
 <?php
 
-/** @var array $res */
-$totalQuantity = $res['quantity'];
-$avgCook = $res['avg'];
+/** @var int $totalQuantity */
+/** @var float $avgCook */
 ?>
 
 <div class="row mb-4">
     <div class="col-9">
-        <h1 class="h2"><?= $res['quantity'] * $res['avg'] ?>x Valencia meal</h1>
-    
-        <ul class="list-group col-6">
-            <?php $totalWeight = 0 ?>
-            <?php foreach ($recipes['valencia'] as $ingredient => $quantity): ?>
-                <li class="list-group-item">
-                    <span class="badge bg-info rounded-pill"><?= $res['quantity'] * $quantity ?></span>
-                    <?= $names[$ingredient] ?>
-                </li>
-                <?php $totalWeight += $weights[$ingredient] * $res['quantity'] * $quantity ?>
-            <?php endforeach; ?>
-            <li class="list-group-item">
-                Total weight:
-                <strong><?= $totalWeight ?></strong>
-            </li>
-        </ul>
+        <h1 class="h2"><?= $totalQuantity * $avgCook ?>x Valencia meal</h1>
     </div>
     <div class="col-3">
         <div class="card">
@@ -51,25 +35,70 @@ $avgCook = $res['avg'];
     </div>
 </div>
 
-<div class="row mb-4">
-    <div class="col-4">
+<div class="row">
+    <div class="col-4 mb-4">
         <div class="card">
             <div class="card-header">preparation</div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">An item</li>
-                    <li class="list-group-item">An item</li>
+                    <?php $totalWeight = 0 ?>
+                    <?php foreach ($preparation as $prepared => $preparedQuantity): ?>
+                        <?php if (isset($recipes[$prepared])) continue ?>
+                        <?php $totalWeight += $weights[$prepared] * $preparedQuantity ?>
+                        <li class="list-group-item">
+                            <span class="badge bg-info rounded-pill"><?= $preparedQuantity ?></span>
+                            <?= $names[$prepared] ?>
+                        </li>
+                    <?php endforeach ?>
+                    <li class="list-group-item">
+                        Total weight:
+                        <strong><?= $totalWeight ?></strong>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
 
+    <?php foreach ($preparation as $prepared => $preparedQuantity): ?>
+        <?php if (! isset($recipes[$prepared])) continue ?>
+
+        <div class="col-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <?= $preparedQuantity / $avgCook ?>x 
+                    <?= $names[$prepared] ?>
+                    <small>(<?= $preparedQuantity ?>)</small>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <?php $qMultiplier = $preparedQuantity / $avgCook ?>
+                        <?php $totalWeight = 0 ?>
+                        <?php foreach ($recipes[$prepared] as $ingredient => $quantity): ?>
+                            <?php $ingredientQuantity = $qMultiplier * $quantity ?>
+                            <?php $totalWeight += $weights[$ingredient] * $ingredientQuantity ?>
+                            <li class="list-group-item">
+                                <span class="badge bg-info rounded-pill"><?= $ingredientQuantity ?></span>
+                                <?= $names[$ingredient] ?>
+                            </li>
+                        <?php endforeach ?>
+                        <li class="list-group-item">
+                            Total weight:
+                            <strong><?= $totalWeight ?></strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    <?php endforeach ?>
+
     <?php foreach ($recipes['valencia'] as $meal => $mealQuantity): ?>
         <div class="col-4 mb-4">
             <div class="card">
                 <div class="card-header">
-                    <?= $totalQuantity * $mealQuantity ?>x 
+                    <?= $totalQuantity * $mealQuantity / $avgCook ?>x 
                     <?= $names[$meal] ?>
+                    <small>(<?= $totalQuantity * $mealQuantity ?>)</small>
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
@@ -82,7 +111,7 @@ $avgCook = $res['avg'];
                                 <span class="badge bg-info rounded-pill"><?= $ingredientQuantity ?></span>
                                 <?= $names[$ingredient] ?>
                             </li>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                         <li class="list-group-item">
                             Total weight:
                             <strong><?= $totalWeight ?></strong>
@@ -91,5 +120,5 @@ $avgCook = $res['avg'];
                 </div>
             </div>
         </div>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </div>

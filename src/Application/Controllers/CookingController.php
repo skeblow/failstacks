@@ -12,8 +12,8 @@ class CookingController extends BaseController
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         $query = $request->getQueryParams();
-        $quantity = (int)($query['quantity'] ?? 800);
-        $avg = (float)($query['avg'] ?? 2.5);
+        $totalQuantity = (int)($query['quantity'] ?? 800);
+        $avgCook = (float)($query['avg'] ?? 2.5);
 
         $recipes = [
             'valencia' => [
@@ -59,6 +59,18 @@ class CookingController extends BaseController
                 'redSauce' => 3,
                 'teffBread' => 1,
             ],
+            'teffBread' => [
+                'leavening' => 2,
+                'water' => 3,
+                'salt' => 2,
+                'teffFlour' => 5,
+            ],
+            'grilledScorpion' => [
+                'butter' => 2,
+                'hotPepper' => 1,
+                'nutmeg' => 3,
+                'scorpion' => 3,
+            ],
         ];
 
         $weights = [
@@ -84,6 +96,15 @@ class CookingController extends BaseController
             'teffBread' => 0.1,
             'grilledScorpion' => 0.1,
             'redSauce' => 0.01,
+            'freekeh' => 0.1,
+            'water' => 0.01,
+            'snake' => 0.03,
+            'anise' => 0.1,
+            'salt' => 0.01,
+            'teffFlour' => 0.1,
+            'butter' => 0.01,
+            'hotPepper' => 0.1,
+            'scorpion' => 0.03,
         ];
 
         $names = [
@@ -109,18 +130,56 @@ class CookingController extends BaseController
             'teffBread' => 'Teff bread',
             'grilledScorpion' => 'Grilled scorpion',
             'redSauce' => 'Red sauce',
+            'freekeh' => 'Freekeh',
+            'water' => 'Mineral water',
+            'snake' => 'Snake meat',
+            'anise' => 'Star anise',
+            'salt' => 'Salt',
+            'teffFlour' => 'Teff flour',
+            'butter' => 'Butter',
+            'hotPepper' => 'Special hot pepper',
+            'scorpion' => 'Scorpion meat',
         ];
 
-        $res = [
-            'quantity' => $quantity,
-            'avg' => $avg,
+        $forPreparation = [
+            'paprika',
+            'freekehSnake',
+            'teffDough',
+            'liquor',
+            'leavening',
+            'sugar',
+            'dough',
+            'oliveOil',
+            'pickled',
+            'teffBread',
+            'grilledScorpion',
+            'redSauce',
         ];
+
+        $prepared = [];
+
+        foreach ($recipes['valencia'] as $meal => $mealQuantity) {
+            $qMultiplier = $totalQuantity * $mealQuantity / $avgCook;
+
+            foreach ($recipes[$meal] as $ingredient => $quantity) {
+                $ingredientQuantity = $qMultiplier * $quantity;
+
+                if (! in_array($ingredient, $forPreparation, true)) {
+                    continue;
+                }
+
+                $prepared[$ingredient] ??= 0;
+                $prepared[$ingredient] += $ingredientQuantity;
+            }
+        }
 
         return $this->render($response, TPL_DIR . '/cooking.tpl.php', [
-            'res' => $res,
+            'totalQuantity' => $totalQuantity,
+            'avgCook' => $avgCook,
             'names' => $names,
             'recipes' => $recipes,
             'weights' => $weights,
+            'preparation' => $prepared,
         ]);
     }
 }
