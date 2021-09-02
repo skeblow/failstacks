@@ -142,24 +142,24 @@ class CookingController extends BaseController
         ];
 
         $forPreparation = [
-            'paprika',
             'teffDough',
             'liquor',
+            'butter',
+            'pickled',
+            'redSauce',
+            'paprika',
             'leavening',
             'sugar',
             'oliveOil',
-            'pickled',
-            'redSauce',
             'water',
             'salt',
+            'hotPepper',
+            'nutmeg',
             'grilledScorpion',
             'freekehSnake',
             'teffBread',
-            'butter',
-            'hotPepper',
-            'nutmeg',
         ];
-        
+
         $prepared = [];
 
         foreach ($recipes['valencia'] as $meal => $mealQuantity) {
@@ -191,6 +191,8 @@ class CookingController extends BaseController
                $prepared[$ingredient] += $ingredientQuantity / $avgCook * $quantity;
             }
         }
+
+        uksort($prepared, static fn ($v1, $v2) => (array_flip($forPreparation)[$v1] ?? 0) <=> (array_flip($forPreparation)[$v2] ?? 0));
 
         return $this->render($response, TPL_DIR . '/cooking.tpl.php', [
             'totalQuantity' => $totalQuantity,
