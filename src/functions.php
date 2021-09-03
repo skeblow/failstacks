@@ -170,6 +170,12 @@ function formatMoney(float $amount): string
         return '0';
     }
 
+    if (abs($amount) > 1_000_000) {
+        $amount /= 1_000_000;
+
+        return number_format($amount, 2, '.', '_') . 'B';
+    }
+
     if (abs($amount) > 1000) {
         $amount /= 1000;
 

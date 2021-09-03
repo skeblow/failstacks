@@ -19,8 +19,8 @@ class CookingController extends BaseController
             'valencia' => [
                 'teffSandwich' => 1,
                 'couscous' => 1,
-                'datePalmWine' => 2,
                 'hamburg' => 1,
+                'datePalmWine' => 2,
                 'figPie' => 2,
             ],
             'couscous' => [
@@ -142,7 +142,7 @@ class CookingController extends BaseController
         ];
 
         $forPreparation = [
-            'teffDough',
+           // 'teffDough',
             'liquor',
             'butter',
             'pickled',

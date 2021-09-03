@@ -19,7 +19,31 @@ $printRecipe = function (array $recipe) use ($names): string {
 
 <div class="row mb-4">
     <div class="col-9">
-        <h1 class="h2"><?= $totalQuantity * $avgCook ?>x Valencia meal</h1>
+        <h1 class="h2">
+            <?= $totalQuantity * $avgCook ?>x Valencia meal
+            <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="<?= $printRecipe($recipes['valencia']) ?>">i</span>
+        </h1>
+
+        <div class="card col-6">
+            <div class="card-header">preparation</div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <?php $totalWeight = 0 ?>
+                    <?php foreach ($preparation as $prepared => $preparedQuantity): ?>
+                        <?php if (isset($recipes[$prepared])) continue ?>
+                        <?php $totalWeight += $weights[$prepared] * $preparedQuantity ?>
+                        <li class="list-group-item">
+                            <span class="badge bg-info rounded-pill"><?= $preparedQuantity ?></span>
+                            <?= $names[$prepared] ?>
+                        </li>
+                    <?php endforeach ?>
+                    <li class="list-group-item">
+                        Total weight:
+                        <strong><?= $totalWeight ?></strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
     <div class="col-3">
         <div class="card">
@@ -43,31 +67,6 @@ $printRecipe = function (array $recipe) use ($names): string {
                         </button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-4 mb-4">
-        <div class="card">
-            <div class="card-header">preparation</div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <?php $totalWeight = 0 ?>
-                    <?php foreach ($preparation as $prepared => $preparedQuantity): ?>
-                        <?php if (isset($recipes[$prepared])) continue ?>
-                        <?php $totalWeight += $weights[$prepared] * $preparedQuantity ?>
-                        <li class="list-group-item">
-                            <span class="badge bg-info rounded-pill"><?= $preparedQuantity ?></span>
-                            <?= $names[$prepared] ?>
-                        </li>
-                    <?php endforeach ?>
-                    <li class="list-group-item">
-                        Total weight:
-                        <strong><?= $totalWeight ?></strong>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
