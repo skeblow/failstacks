@@ -4,7 +4,7 @@
 /** @var float $avgCook */
 
 $printRecipe = function (array $recipe) use ($names): string {
-    $html = '<ul>';
+    $html = '<ul class=\'mb-0\'>';
 
     foreach ($recipe as $ingredient => $quantity) {
         $html .= sprintf('<li>%sx %s</li>', $quantity, $names[$ingredient]);

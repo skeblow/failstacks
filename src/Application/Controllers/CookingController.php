@@ -142,7 +142,6 @@ class CookingController extends BaseController
         ];
 
         $forPreparation = [
-           // 'teffDough',
             'liquor',
             'butter',
             'pickled',
