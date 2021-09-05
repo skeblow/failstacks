@@ -17,33 +17,33 @@ $pages = [
         'name' => 'silver embro',
         'isActive' => isUrlActive($pathInfo, '/silver'),
         'items' => [
-            '/silverCook/1' => '+1 cook'
+            '/silverCook/3' => '+3 cook'
         ],
     ],
     [
         'name' => 'manos',
         'isActive' => isUrlActive($pathInfo, '/manos'),
         'items' => [
-            '/manosTool/16' => 'tool'
+            '/manosTool/19' => 'TET tool'
         ],
     ], 
     [
         'name' => 'horse',
         'isActive' => isUrlActive($pathInfo, '/horse/'),
         'items' => [        
-            '/horseShoe/1' => 'horse shoe',
-            '/horseSaddle/1' => 'horse saddle',
-            '/horseStirrups/1' => 'horse stirrups',
-            '/horseArmor/1' => 'horse armor',
+            '/horseShoe/5' => 'horse shoe',
+            '/horseSaddle/5' => 'horse saddle',
+            '/horseStirrups/5' => 'horse stirrups',
+            '/horseArmor/5' => 'horse armor',
         ],
     ],
     [
         'name' => 'boss',
         'isActive' => isUrlActive($pathInfo, '/boss'),
         'items' => [
-            '/bossUrugon/16' => 'urugon +16',
-            '/bossKzarka/16' => 'kzarka +16',
-            '/bossDimTree/20' => 'dimTree +20',
+            '/bossUrugon/19' => 'TET urugon',
+            '/bossKzarka/19' => 'TET kzarka',
+            '/bossDimTree/19' => 'TET dimTree',
         ],
     ],
     [

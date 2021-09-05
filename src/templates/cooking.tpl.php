@@ -24,8 +24,9 @@ $printRecipe = function (array $recipe) use ($names): string {
             <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="<?= $printRecipe($recipes['valencia']) ?>">i</span>
         </h1>
 
+        
+
         <div class="card col-6">
-            <div class="card-header">preparation</div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     <?php $totalWeight = 0 ?>
@@ -72,6 +73,8 @@ $printRecipe = function (array $recipe) use ($names): string {
     </div>
 </div>
 
+<h2 class="h4 border-bottom mb-3">Preparation <small class="text-muted">(~15 min)</small></h2>
+
 <div class="row">
     <?php foreach ($preparation as $prepared => $preparedQuantity): ?>
         <?php if (! isset($recipes[$prepared])) continue ?>
@@ -108,7 +111,9 @@ $printRecipe = function (array $recipe) use ($names): string {
 
     <?php endforeach ?>
 </div>
-<hr>
+
+<h2 class="h4 border-bottom mb-3">Main <small class="text-muted">(~45 min)</small></h2>
+
 <div class="row">
     <?php foreach ($recipes['valencia'] as $meal => $mealQuantity): ?>
         <div class="col-4 mb-4">

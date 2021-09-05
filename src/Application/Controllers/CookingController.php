@@ -18,8 +18,8 @@ class CookingController extends BaseController
         $recipes = [
             'valencia' => [
                 'teffSandwich' => 1,
-                'couscous' => 1,
                 'hamburg' => 1,
+                'couscous' => 1,
                 'datePalmWine' => 2,
                 'figPie' => 2,
             ],
@@ -157,6 +157,7 @@ class CookingController extends BaseController
             'grilledScorpion',
             'freekehSnake',
             'teffBread',
+            'lion',
         ];
 
         $prepared = [];
