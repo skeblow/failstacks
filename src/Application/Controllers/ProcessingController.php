@@ -12,6 +12,11 @@ class ProcessingController extends BaseController
 {
     public function __invoke(Request $request, Response $response, array $args): Response
     {
+        $query = $request->getQueryParams();
+        $cereal = (int)($quantity['cereal'] ?? 0);
+        $flour = (int)($quantity['flour'] ?? 0);
+        $water = (int)($quantity['water'] ?? 0);
+
         $avgRate = 2.5;
         $massProcess = 42;
         $weightLimit = 1100;
@@ -30,9 +35,9 @@ class ProcessingController extends BaseController
 
         $res = [
             'input' => [
-                'cereal' => 1600,
-                'flour' => 0,
-                'water' => 4000,
+                'cereal' => $cereal,
+                'flour' => $flour,
+                'water' => $water,
             ],
             'result' => [],
             'weight' => 0,
@@ -95,20 +100,16 @@ class ProcessingController extends BaseController
         $totalPrice /= 1000;
 
         $res['totalPrice'] = $totalPrice;
-        $res['profitPerH'] = formatMoney($totalPrice / ($res['processingTime'] / 60));
-        $res['totalProfit'] = formatMoney(($res['totalPrice'] - $res['totalCost']));
-        $res['totalPrice'] = formatMoney($res['totalPrice']);
-        $res['totalCost'] = formatMoney($res['totalCost']);
+        $res['totalProfit'] = $res['totalPrice'] - $res['totalCost'];
+        $res['profitPerH'] = $res['totalProfit'] / ($res['processingTime'] / 60);
         $res['weight'] = $weight;
-
-        dd($res);
 
         // 4x 1_330_000
         // 8389 flour
 
 
         return $this->render($response, TPL_DIR . '/processing.tpl.php', [
-
+            'res' => $res,
         ]);
     }
 }
