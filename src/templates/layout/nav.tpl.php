@@ -61,6 +61,21 @@ $pages = [
         'url' => '/cooking',
         'isActive' => isUrlActive($pathInfo, '/cooking'),
     ],
+    [
+        'name' => 'alchemy',
+        'url' => '/alchemy',
+        'items' => [
+            '/alchemy/beast' => 'beast draght',
+            '/alchemy/verdure' => 'verdure draught',
+            '/alchemy/frenzy' => 'TODO frenzy draught',
+        ],
+        'isActive' => isUrlActive($pathInfo, '/alchemy'),
+    ],
+    [
+        'name' => 'processing',
+        'url' => '/processing',
+        'isActive' => isUrlActive($pathInfo, '/processing'),
+    ],
 ];
 
 function isUrlActive($pathInfo, $url): bool

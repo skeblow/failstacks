@@ -7,6 +7,7 @@ use App\Application\Controllers\GatherController;
 use App\Application\Controllers\IndexController;
 use App\Application\Controllers\EnhaController;
 use App\Application\Controllers\PricesController;
+use App\Application\Controllers\ProcessingController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -23,6 +24,7 @@ return function (App $app) {
     $app->get('/prices', PricesController::class);
     $app->post('/prices', PricesController::class . ':post');
     $app->get('/cooking', CookingController::class);
+    $app->get('/processing', ProcessingController::class);
 
     $app->get('/{item}/{level}', EnhaController::class);
 };
