@@ -24,9 +24,8 @@ $printRecipe = function (array $recipe) use ($names): string {
             <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="<?= $printRecipe($recipes['valencia']) ?>">i</span>
         </h1>
 
-        
-
         <div class="card col-6">
+            <div class="card-header">Grab</div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     <?php $totalWeight = 0 ?>
@@ -34,7 +33,7 @@ $printRecipe = function (array $recipe) use ($names): string {
                         <?php if (isset($recipes[$prepared])) continue ?>
                         <?php $totalWeight += $weights[$prepared] * $preparedQuantity ?>
                         <li class="list-group-item">
-                            <span class="badge bg-info rounded-pill"><?= $preparedQuantity ?></span>
+                            <span class="badge bg-primary rounded-pill"><?= $preparedQuantity ?></span>
                             <?= $names[$prepared] ?>
                         </li>
                     <?php endforeach ?>
@@ -83,8 +82,8 @@ $printRecipe = function (array $recipe) use ($names): string {
             <div class="card">
                 <div class="card-header">
                     <?= $preparedQuantity / $avgCook ?>x 
+                    <strong>(<?= $preparedQuantity ?>)</strong>
                     <?= $names[$prepared] ?>
-                    <small>(<?= $preparedQuantity ?>)</small>
                     <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="<?= $printRecipe($recipes[$prepared]) ?>">i</span>
                 </div>
                 <div class="card-body">
@@ -96,7 +95,7 @@ $printRecipe = function (array $recipe) use ($names): string {
                             <?php $ingredientQuantity = $qMultiplier * $quantity ?>
                             <?php $totalWeight += $weights[$ingredient] * $ingredientQuantity ?>
                             <li class="list-group-item">
-                                <span class="badge bg-info rounded-pill"><?= $ingredientQuantity ?></span>
+                                <span class="badge bg-primary rounded-pill"><?= $ingredientQuantity ?></span>
                                 <?= $names[$ingredient] ?>
                             </li>
                         <?php endforeach ?>
@@ -120,8 +119,8 @@ $printRecipe = function (array $recipe) use ($names): string {
             <div class="card">
                 <div class="card-header">
                     <?= $totalQuantity * $mealQuantity / $avgCook ?>x 
+                    <strong>(<?= $totalQuantity * $mealQuantity ?>)</strong>
                     <?= $names[$meal] ?>
-                    <small>(<?= $totalQuantity * $mealQuantity ?>)</small>
                     <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="<?= $printRecipe($recipes[$meal]) ?>">i</span>
                 </div>
                 <div class="card-body">
@@ -133,7 +132,7 @@ $printRecipe = function (array $recipe) use ($names): string {
                             <?php $ingredientQuantity = $qMultiplier * $quantity ?>
                             <?php $totalWeight += $weights[$ingredient] * $ingredientQuantity ?>
                             <li class="list-group-item">
-                                <span class="badge bg-info rounded-pill"><?= $ingredientQuantity ?></span>
+                                <span class="badge bg-primary rounded-pill"><?= $ingredientQuantity ?></span>
                                 <?= $names[$ingredient] ?>
                             </li>
                         <?php endforeach ?>

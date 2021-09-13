@@ -7,15 +7,19 @@
                 <form method="get">
                     <div class="input-group mb-3">
                         <span class="input-group-text">Cereal</span>
-                        <input type="text" class="form-control" name="cereal" value="0">
+                        <input type="text" class="form-control" name="cereal" value="<?= $res['input']['cereal'] ?>">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Flour</span>
-                        <input type="text" class="form-control" name="flour" value="0">
+                        <input type="text" class="form-control" name="flour" value="<?= $res['input']['flour'] ?>">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Water</span>
-                        <input type="text" class="form-control" name="dough" value="0">
+                        <input type="text" class="form-control" name="water" value="<?= $res['input']['water'] ?>">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Weght limit</span>
+                        <input type="text" class="form-control" name="weight" value="1000">
                     </div>
                     <div class="d-grid">
                         <button class="btn btn-primary">

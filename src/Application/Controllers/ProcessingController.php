@@ -13,13 +13,13 @@ class ProcessingController extends BaseController
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         $query = $request->getQueryParams();
-        $cereal = (int)($quantity['cereal'] ?? 0);
-        $flour = (int)($quantity['flour'] ?? 0);
-        $water = (int)($quantity['water'] ?? 0);
+        $cereal = (int)($query['cereal'] ?? 0);
+        $flour = (int)($query['flour'] ?? 0);
+        $water = (int)($query['water'] ?? 0);
+        $weightLimit = (int)($query['weight'] ?? 1000);
 
         $avgRate = 2.5;
         $massProcess = 42;
-        $weightLimit = 1100;
         $weights = [
             'cereal' => 0.1,
             'flour' => 0.1,
@@ -58,6 +58,8 @@ class ProcessingController extends BaseController
 
         $recipes = ['cereal', 'flour'];
 
+        $i = 0;
+
         foreach ($recipes as $input) {
             do {
                 if ($input === 'cereal') {
@@ -74,21 +76,25 @@ class ProcessingController extends BaseController
                 } else {
                     throw new Exception('Unknown input');
                 }
-    
+
+                if ($batchSize === 0) {
+                    break 2;
+                }
+
                 $weight = 0;
-    
+
                 foreach ($res['result'] as $ingredient => $count) {
                     $weight += $count * $weights[$ingredient];
                 }
-    
+
                 $res['maxWeight'] = max($weight, $res['maxWeight']);
-    
+
                 if ($weight > $weightLimit) {
                     break;
                 }
-                
+
                 $res['processingTime'] += 1.2;
-            } while ($res['result'][$input] ?? 0 > 0);
+            } while (($res['result'][$input] ?? 0) > 0);
         }
 
         $totalPrice = 0;
@@ -106,6 +112,9 @@ class ProcessingController extends BaseController
 
         // 4x 1_330_000
         // 8389 flour
+        // 7400 dough
+        // 6000 dough
+
 
 
         return $this->render($response, TPL_DIR . '/processing.tpl.php', [
