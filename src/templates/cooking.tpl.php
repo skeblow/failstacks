@@ -20,8 +20,8 @@ $printRecipe = function (array $recipe) use ($names): string {
 <div class="row mb-4">
     <div class="col-9">
         <h1 class="h2">
-            <?= $totalQuantity * $avgCook ?>x Valencia meal
-            <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="<?= $printRecipe($recipes['valencia']) ?>">i</span>
+            <?= $totalQuantity * $avgCook ?>x <?= $names[$main] ?>
+            <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="<?= $printRecipe($recipes[$main]) ?>">i</span>
         </h1>
 
         <div class="card col-6">
@@ -114,7 +114,8 @@ $printRecipe = function (array $recipe) use ($names): string {
 <h2 class="h4 border-bottom mb-3">Main <small class="text-muted">(~45 min)</small></h2>
 
 <div class="row">
-    <?php foreach ($recipes['valencia'] as $meal => $mealQuantity): ?>
+    <?php foreach ($recipes[$main] as $meal => $mealQuantity): ?>
+        <?php if (! isset($recipes[$meal])) continue ?>
         <div class="col-4 mb-4">
             <div class="card">
                 <div class="card-header">

@@ -14,6 +14,7 @@ class CookingController extends BaseController
         $query = $request->getQueryParams();
         $totalQuantity = (int)($query['quantity'] ?? 800);
         $avgCook = (float)($query['avg'] ?? 2.5);
+        $main = 'valencia';
 
         $recipes = [
             'valencia' => [
@@ -162,7 +163,7 @@ class CookingController extends BaseController
 
         $prepared = [];
 
-        foreach ($recipes['valencia'] as $meal => $mealQuantity) {
+        foreach ($recipes[$main] as $meal => $mealQuantity) {
             $qMultiplier = $totalQuantity * $mealQuantity / $avgCook;
 
             foreach ($recipes[$meal] as $ingredient => $quantity) {
@@ -195,6 +196,7 @@ class CookingController extends BaseController
         uksort($prepared, static fn ($v1, $v2) => (array_flip($forPreparation)[$v1] ?? 0) <=> (array_flip($forPreparation)[$v2] ?? 0));
 
         return $this->render($response, TPL_DIR . '/cooking.tpl.php', [
+            'main' => $main,
             'totalQuantity' => $totalQuantity,
             'avgCook' => $avgCook,
             'names' => $names,
