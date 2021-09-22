@@ -19,7 +19,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Weght limit</span>
-                        <input type="text" class="form-control" name="weight" value="1000">
+                        <input type="text" class="form-control" name="weight" value="<?= $res['weightLimit'] ?>">
                     </div>
                     <div class="d-grid">
                         <button class="btn btn-primary">

@@ -41,6 +41,7 @@ class ProcessingController extends BaseController
             ],
             'result' => [],
             'weight' => 0,
+            'weightLimit' => $weightLimit,
             'maxWeight' => 0,
             'processingTime' => 0,
             'totalCost' => 0,
@@ -59,6 +60,7 @@ class ProcessingController extends BaseController
         $recipes = ['cereal', 'flour'];
 
         $i = 0;
+        $weight = 0;
 
         foreach ($recipes as $input) {
             do {
@@ -107,14 +109,18 @@ class ProcessingController extends BaseController
 
         $res['totalPrice'] = $totalPrice;
         $res['totalProfit'] = $res['totalPrice'] - $res['totalCost'];
-        $res['profitPerH'] = $res['totalProfit'] / ($res['processingTime'] / 60);
+
+        $timeMultiplier = $res['processingTime']
+            ? 1 / $res['processingTime'] * 60
+            : 0;
+
+        $res['profitPerH'] = $res['totalProfit'] * $timeMultiplier;
         $res['weight'] = $weight;
 
         // 4x 1_330_000
         // 8389 flour
         // 7400 dough
         // 6000 dough
-
 
 
         return $this->render($response, TPL_DIR . '/processing.tpl.php', [
