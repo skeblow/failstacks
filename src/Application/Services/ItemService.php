@@ -14,6 +14,7 @@ use App\Application\Items\GreenArmor;
 use App\Application\Items\HorseItem;
 use App\Application\Items\RepairableItemInterface;
 use App\Application\Items\WhiteArmor;
+use App\Application\Items\YellowAccessoryItem;
 
 class ItemService
 {
@@ -62,6 +63,19 @@ class ItemService
         'horseArmor' => 'horse armor',
     ];
 
+    public const YELLOW_ACCESSORIES = [
+        'ogreRing' => 'ogre ring', // 50m
+        'sicilNeck' => 'sicil\'s necklace', // 6.5m
+        'serapNeck' => 'serap\'s necklace', // 6.4m
+        'laytenStone' => 'laytenn\'s power stone', // 50m,
+        'crescentRing' => 'ring of crescent guardian', // 37m
+        'cadryRing' => 'ring of cadry guardian', // 6.5m
+        'ronarosRing' => 'forest ronaros ring', // 4.6m
+        'eyeRuinsRing' => 'eye of the ruins ring', // 50m
+        'basilBelt' => 'bassilisk\'s belt', // 25m
+        'eclipsedBelt' => 'valtarra eclipsed belt', // 40m
+    ];
+
     public function __construct(
         private PricesService $pricesService,
     ) {}
@@ -105,6 +119,10 @@ class ItemService
 
         if (isset(self::SILVER_ITEMS[$id])) {
             return new BlueAccessoryItem($id, self::SILVER_ITEMS[$id], $basePrice);
+        }
+
+        if (isset(self::YELLOW_ACCESSORIES[$id])) {
+            return new YellowAccessoryItem($id, self::YELLOW_ACCESSORIES[$id], $basePrice);
         }
 
         throw new \Exception(sprintf('Item %s not found!', $id));

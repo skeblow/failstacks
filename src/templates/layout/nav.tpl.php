@@ -1,5 +1,7 @@
 <?php
 
+use App\Application\Services\ItemService;
+
 $pathInfo = $_SERVER['PATH_INFO'] ?? '/';
 
 $pages = [
@@ -45,6 +47,19 @@ $pages = [
             '/bossKzarka/19' => 'TET kzarka',
             '/bossDimTree/19' => 'TET dimTree',
         ],
+    ],
+    [
+        'name' => 'accessories',
+        'isActive' => isUrlActive($pathInfo, '/accessory'),
+        'items' => (function () {
+            $items = [];
+
+            foreach (ItemService::YELLOW_ACCESSORIES as $id => $name) {
+                $items[sprintf('/%s/1', $id)] = sprintf('PRI %s', $name);
+            }
+
+            return $items;
+        })(),
     ],
     [
         'name' => 'processing stone',
