@@ -166,6 +166,7 @@ class ItemService
             array_keys(self::BOSS_WEAPONS),
             array_keys(self::HORSE_ITEMS),
             array_keys(self::SILVER_ITEMS),
+            array_keys(self::YELLOW_ACCESSORIES),
         );
         $items = [];
 

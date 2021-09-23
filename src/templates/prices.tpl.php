@@ -7,6 +7,7 @@ use App\Application\Items\BossItem;
 use App\Application\Items\GreenItem;
 use App\Application\Items\HorseItem;
 use App\Application\Items\ItemInterface;
+use App\Application\Items\YellowAccessoryItem;
 
 /** @var array<ItemInterface> $items */
 
@@ -26,6 +27,10 @@ $itemTypes = [
     [
         'name' => 'blue accessory items',
         'type' => BlueAccessoryItem::class,
+    ],
+    [
+        'name' => 'yellow accessory items',
+        'type' => YellowAccessoryItem::class,
     ],
     [
         'name' => 'boss items',
