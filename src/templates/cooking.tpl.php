@@ -18,13 +18,13 @@ $printRecipe = function (array $recipe) use ($names): string {
 ?>
 
 <div class="row mb-4">
-    <div class="col-9">
+    <div class="col-md-9 order-2 order-lg-1">
         <h1 class="h2">
             <?= $totalQuantity * $avgCook ?>x <?= $names[$main] ?>
             <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" title="<?= $printRecipe($recipes[$main]) ?>">i</span>
         </h1>
 
-        <div class="card col-6">
+        <div class="card col-md-6">
             <div class="card-header">Grab</div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
@@ -45,7 +45,7 @@ $printRecipe = function (array $recipe) use ($names): string {
             </div>
         </div>
     </div>
-    <div class="col-3">
+    <div class="col-md-3 order-1 order-lg-2 mb-4">
         <div class="card">
             <div class="card-body">
                 <form method="get">
@@ -78,7 +78,7 @@ $printRecipe = function (array $recipe) use ($names): string {
     <?php foreach ($preparation as $prepared => $preparedQuantity): ?>
         <?php if (! isset($recipes[$prepared])) continue ?>
 
-        <div class="col-4 mb-4">
+        <div class="col-md-4 mb-4">
             <div class="card">
                 <div class="card-header">
                     <?= $preparedQuantity / $avgCook ?>x 
@@ -116,7 +116,7 @@ $printRecipe = function (array $recipe) use ($names): string {
 <div class="row">
     <?php foreach ($recipes[$main] as $meal => $mealQuantity): ?>
         <?php if (! isset($recipes[$meal])) continue ?>
-        <div class="col-4 mb-4">
+        <div class="col-md-4 mb-4">
             <div class="card">
                 <div class="card-header">
                     <?= $totalQuantity * $mealQuantity / $avgCook ?>x 
