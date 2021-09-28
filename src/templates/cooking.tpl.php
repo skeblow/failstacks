@@ -32,7 +32,8 @@ $printRecipe = function (array $recipe) use ($names): string {
                     <?php foreach ($preparation as $prepared => $preparedQuantity): ?>
                         <?php if (isset($recipes[$prepared])) continue ?>
                         <?php $totalWeight += $weights[$prepared] * $preparedQuantity ?>
-                        <li class="list-group-item">
+                        <li class="list-group-item js-complete">
+                            <i class="bi bi-check d-none"></i>
                             <span class="badge bg-primary rounded-pill"><?= $preparedQuantity ?></span>
                             <?= $names[$prepared] ?>
                         </li>
@@ -80,7 +81,8 @@ $printRecipe = function (array $recipe) use ($names): string {
 
         <div class="col-md-4 mb-4">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header js-complete">
+                    <i class="bi bi-check d-none"></i>
                     <?= $preparedQuantity / $avgCook ?>x 
                     <strong>(<?= $preparedQuantity ?>)</strong>
                     <?= $names[$prepared] ?>
@@ -94,7 +96,8 @@ $printRecipe = function (array $recipe) use ($names): string {
                             <?php if (isset ($preparation[$ingredient])) continue ?>
                             <?php $ingredientQuantity = $qMultiplier * $quantity ?>
                             <?php $totalWeight += $weights[$ingredient] * $ingredientQuantity ?>
-                            <li class="list-group-item">
+                            <li class="list-group-item js-complete">
+                                <i class="bi bi-check d-none"></i>
                                 <span class="badge bg-primary rounded-pill"><?= $ingredientQuantity ?></span>
                                 <?= $names[$ingredient] ?>
                             </li>
@@ -118,7 +121,8 @@ $printRecipe = function (array $recipe) use ($names): string {
         <?php if (! isset($recipes[$meal])) continue ?>
         <div class="col-md-4 mb-4">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header js-complete">
+                    <i class="bi bi-check d-none"></i>
                     <?= $totalQuantity * $mealQuantity / $avgCook ?>x 
                     <strong>(<?= $totalQuantity * $mealQuantity ?>)</strong>
                     <?= $names[$meal] ?>
@@ -132,7 +136,8 @@ $printRecipe = function (array $recipe) use ($names): string {
                             <?php if (isset ($preparation[$ingredient])) continue ?>
                             <?php $ingredientQuantity = $qMultiplier * $quantity ?>
                             <?php $totalWeight += $weights[$ingredient] * $ingredientQuantity ?>
-                            <li class="list-group-item">
+                            <li class="list-group-item js-complete">
+                                <i class="bi bi-check d-none"></i>
                                 <span class="badge bg-primary rounded-pill"><?= $ingredientQuantity ?></span>
                                 <?= $names[$ingredient] ?>
                             </li>
@@ -153,4 +158,13 @@ $printRecipe = function (array $recipe) use ($names): string {
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
+</script>
+<script>
+    document.querySelectorAll('.js-complete').forEach(el => {
+        el.addEventListener('click', () => {
+            const icon = el.querySelector('i.bi');
+            icon.classList.toggle('d-inline-block');
+            icon.classList.toggle('d-none');
+        });
+    });
 </script>

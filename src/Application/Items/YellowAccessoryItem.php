@@ -50,6 +50,11 @@ class YellowAccessoryItem implements ItemInterface, BreakingItemInterface
 
     public function getLevelPriceMultiplier(int $level): float
     {
-        return 1;
+        $multipliers = [
+            1 => 2.3,
+            2 => 9,
+        ];
+
+        return $multipliers[$level] ?? 1.0;
     }
 }
