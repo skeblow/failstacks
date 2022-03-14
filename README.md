@@ -1,2 +1,2 @@
-# skeblow failstakcs simple app
+# skeblow failstacks simple app
 
